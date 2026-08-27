@@ -1,0 +1,26 @@
+[
+  {
+    "id": "post-1",
+    "author": {
+      "name": "",
+      "tagline": "",
+      "avatarUrl": ""
+    },
+    "content": "",
+    "mediaUrl": "https://youtu.be/nW_Z9SBJCG8?si=P2bd0r2F_MuUMMG8",
+    "type": "video",
+    "createdAt": ""
+  },
+  {
+    "id": "post-2",
+    "author": {
+      "name": "",
+      "tagline": "",
+      "avatarUrl": ""
+    },
+    "content": "",
+    "mediaUrl": "https://youtu.be/bzI9PM1fA34?si=l8a-5-btF0V_AFGX",
+    "type": "video",
+    "createdAt": ""
+  }
+]
