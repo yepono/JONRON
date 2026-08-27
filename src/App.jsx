@@ -14,8 +14,8 @@ import Torneo from './pages/Torneo';
 export default function App() {
   return (
     <HashRouter>
-      <div className="min-h-screen bg-slate-100 text-slate-900 flex justify-center">
-        <div className="w-full max-w-md bg-white min-h-screen relative pb-20 shadow-lg flex flex-col">
+      <div className="min-h-screen bg-slate-00 text-slate-900 flex justify-center items-center md:py-6">
+        <div className="w-full max-w-md bg-white min-h-screen md:min-h-844px md:h-844px md:rounded-3xl relative shadow-2xl flex flex-col overflow-hidden">
 
           <main className="flex-1 overflow-y-auto">
             <Routes>

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "post-1",
+    "author": {
+      "name": "Olivia",
+      "tagline": "Fan de X Equipo",
+      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+    },
+    "content": "¡Gran jugada en la novena entrada! La rotación de lanzadores está marcando una diferencia histórica esta temporada en la Liga Americana.",
+    "mediaUrl": "https://images.unsplash.com/photo-1508344928928-7165b67de128?w=800&auto=format&fit=crop&q=80",
+    "type": "image",
+    "createdAt": "Hace 2 horas"
+  },
+  {
+    "id": "post-2",
+    "author": {
+      "name": "MLB Oficial",
+      "tagline": "Noticias de la Liga",
+      "avatarUrl": "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=150&auto=format&fit=crop&q=80"
+    },
+    "content": "Se anuncian los abridores oficiales para la serie del fin de semana. Preparen sus alineaciones en el simulador.",
+    "mediaUrl": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&auto=format&fit=crop&q=80",
+    "type": "image",
+    "createdAt": "Hace 5 horas"
+  }
+]
