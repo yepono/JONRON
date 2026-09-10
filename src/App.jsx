@@ -34,6 +34,7 @@ export default function App() {
             </Routes>
           </main>
 
+
           <BottomNav />
         </div>
       </div>

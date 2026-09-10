@@ -25,9 +25,9 @@ export default function PostCard({ post, mediaOnly = false }) {
 
     const effects = [
         { id: 'rainbow', label: 'Efecto arcoiris' },
-        { id: 'pink', label: 'Efecto rosa' },
+        { id: 'pink', label: 'Efecto zombie' },
         { id: 'blur', label: 'Efecto blur' },
-        { id: 'invert', label: 'Colores invertidos' },
+        { id: 'invert', label: 'Efecto X' },
     ];
 
     const selectEffect = (effect) => {
@@ -68,7 +68,7 @@ export default function PostCard({ post, mediaOnly = false }) {
                             <iframe
                                 src={youtubeEmbedUrl}
                                 title="Video de YouTube"
-                                className={`relative z-0 block w-full h-full ${selectedEffect === 'pink' ? 'sepia saturate-200 hue-rotate-290' : ''} ${selectedEffect === 'invert' ? 'invert' : ''} ${selectedEffect === 'blur' ? 'blur-sm' : ''}`}
+                                className={`relative z-0 block w-full h-full ${selectedEffect === 'pink' ? 'hue-rotate-1500' : ''} ${selectedEffect === 'invert' ? 'invert' : ''} ${selectedEffect === 'blur' ? 'blur-sm' : ''}`}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 loading="lazy"
                                 allowFullScreen
@@ -77,7 +77,7 @@ export default function PostCard({ post, mediaOnly = false }) {
                             <img
                                 src={mediaUrl}
                                 alt="Contenido de publicación"
-                                className={`w-full h-full object-cover ${selectedEffect === 'pink' ? 'sepia saturate-200 hue-rotate-290' : ''} ${selectedEffect === 'invert' ? 'invert' : ''} ${selectedEffect === 'blur' ? 'blur-sm' : ''}`}
+                                className={`w-full h-full object-cover ${selectedEffect === 'pink' ? 'hue-rotate-1500' : ''} ${selectedEffect === 'invert' ? 'invert' : ''} ${selectedEffect === 'blur' ? 'blur-sm' : ''}`}
                             />
                         )}
                         {selectedEffect === 'rainbow' && (
