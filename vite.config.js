@@ -9,3 +9,8 @@ export default defineConfig({
     tailwindcss()],
     base: '/JONRON/',
 })
+
+export default defineConfig({
+  base: '/jonron-app/',
+  plugins: [react()],
+})
