@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@keyframes particle-fall {
+	from {
+		transform: translate3d(0, -8vh, 0) rotate(0deg);
+		opacity: 0;
+	}
+	10% {
+		opacity: 1;
+	}
+	to {
+		transform: translate3d(22px, 115vh, 0) rotate(360deg);
+		opacity: 0.15;
+	}
+}
+
+.particle {
+	animation: particle-fall linear infinite;
+}
