@@ -17,7 +17,7 @@ export default function App() {
       <div className="min-h-screen bg-slate-00 text-slate-900 flex justify-center items-center md:py-6">
         <div className="w-full max-w-md bg-white min-h-screen md:min-h-844px md:h-844px md:rounded-3xl relative shadow-2xl flex flex-col overflow-hidden">
 
-          <main className="flex-1 overflow-y-auto">
+          <main className="flex-1 overflow-y-auto ">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/videos" element={<Videos />} />

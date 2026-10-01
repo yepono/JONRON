@@ -10,7 +10,3 @@ export default defineConfig({
     base: '/JONRON/',
 })
 
-export default defineConfig({
-  base: '/jonron-app/',
-  plugins: [react()],
-})
