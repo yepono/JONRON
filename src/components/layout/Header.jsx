@@ -20,7 +20,7 @@ export default function Header({ searchQuery, setSearchQuery, onSearch }) {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="buscar..."
+                    placeholder="Buscar..."
                     className="w-full py-2 pl-4 pr-10 rounded-xl bg-white text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-inner"
                 />
                 <button
