@@ -1,0 +1,219 @@
+[
+  {
+    "team": "angels",
+    "targetIndex": 0,
+    "folder": "angels",
+    "mind": "angels.mind",
+    "model": "angels.glb"
+  },
+  {
+    "team": "arizona_db",
+    "targetIndex": 1,
+    "folder": "arizona_db",
+    "mind": "arizona_db.mind",
+    "model": "arizona_db.glb"
+  },
+  {
+    "team": "astros",
+    "targetIndex": 2,
+    "folder": "astros",
+    "mind": "astros.mind",
+    "model": "astros.glb"
+  },
+  {
+    "team": "athletics",
+    "targetIndex": 3,
+    "folder": "athletics",
+    "mind": "athletics.mind",
+    "model": "athletics.glb"
+  },
+  {
+    "team": "baltimore",
+    "targetIndex": 4,
+    "folder": "baltimore",
+    "mind": "baltimore.mind",
+    "model": "baltimore.glb"
+  },
+  {
+    "team": "braves",
+    "targetIndex": 6,
+    "folder": "braves",
+    "mind": "braves.mind",
+    "model": "braves.glb"
+  },
+  {
+    "team": "brewers",
+    "targetIndex": 7,
+    "folder": "brewers",
+    "mind": "brewers.mind",
+    "model": "brewers.glb"
+  },
+  {
+    "team": "cardinals",
+    "targetIndex": 8,
+    "folder": "cardinals",
+    "mind": "cardinals.mind",
+    "model": "cardinals.glb"
+  },
+  {
+    "team": "cubs",
+    "targetIndex": 9,
+    "folder": "cubs",
+    "mind": "cubs.mind",
+    "model": "cubs.glb"
+  },
+  {
+    "team": "detroit",
+    "targetIndex": 26,
+    "folder": "detroit",
+    "mind": "detroit.mind",
+    "model": "detroit.glb"
+  },
+  {
+    "team": "dodgers",
+    "targetIndex": 10,
+    "folder": "dodgers",
+    "mind": "dodgers.mind",
+    "model": "dodgers.glb"
+  },
+  {
+    "team": "giants",
+    "targetIndex": 11,
+    "folder": "giants",
+    "mind": "giants.mind",
+    "model": "giants.glb"
+  },
+  {
+    "team": "guardians",
+    "targetIndex": 12,
+    "folder": "guardians",
+    "mind": "guardians.mind",
+    "model": "guardians.glb"
+  },
+  {
+    "team": "jersey",
+    "targetIndex": null,
+    "folder": "jersey",
+    "mind": "jersey.mind",
+    "model": "jersey.glb"
+  },
+  {
+    "team": "mariners",
+    "targetIndex": 13,
+    "folder": "mariners",
+    "mind": "mariners.mind",
+    "model": "mariners.glb"
+  },
+  {
+    "team": "marlins",
+    "targetIndex": 14,
+    "folder": "marlins",
+    "mind": "marlins.mind",
+    "model": "marlins.glb"
+  },
+  {
+    "team": "mets",
+    "targetIndex": 15,
+    "folder": "mets",
+    "mind": "mets.mind",
+    "model": "mets.glb"
+  },
+  {
+    "team": "padres",
+    "targetIndex": 17,
+    "folder": "padres",
+    "mind": "padres.mind",
+    "model": "padres.glb"
+  },
+  {
+    "team": "phillies",
+    "targetIndex": 18,
+    "folder": "phillies",
+    "mind": "phillies.mind",
+    "model": "phillies.glb"
+  },
+  {
+    "team": "pirates",
+    "targetIndex": 19,
+    "folder": "pirates",
+    "mind": "pirates.mind",
+    "model": "pirates.glb"
+  },
+  {
+    "team": "rays",
+    "targetIndex": 20,
+    "folder": "rays",
+    "mind": "rays.mind",
+    "model": "rays.glb"
+  },
+  {
+    "team": "reds",
+    "targetIndex": 21,
+    "folder": "reds",
+    "mind": "reds.mind",
+    "model": "reds.glb"
+  },
+  {
+    "team": "redsox",
+    "targetIndex": 22,
+    "folder": "redsox",
+    "mind": "redsox.mind",
+    "model": "redsox.glb"
+  },
+  {
+    "team": "rockies",
+    "targetIndex": 23,
+    "folder": "rockies",
+    "mind": "rockies.mind",
+    "model": "rockies.glb"
+  },
+  {
+    "team": "royals",
+    "targetIndex": 24,
+    "folder": "royals",
+    "mind": "royals.mind",
+    "model": "royals.glb"
+  },
+  {
+    "team": "texas",
+    "targetIndex": 25,
+    "folder": "texas",
+    "mind": "texas.mind",
+    "model": "texas.glb"
+  },
+  {
+    "team": "toronto",
+    "targetIndex": 5,
+    "folder": "toronto",
+    "mind": "toronto.mind",
+    "model": "toronto.glb"
+  },
+  {
+    "team": "twins",
+    "targetIndex": 27,
+    "folder": "twins",
+    "mind": "twins.mind",
+    "model": "twins.glb"
+  },
+  {
+    "team": "washington",
+    "targetIndex": 16,
+    "folder": "washington",
+    "mind": "washington.mind",
+    "model": "washington.glb"
+  },
+  {
+    "team": "white_sox",
+    "targetIndex": 28,
+    "folder": "white_sox",
+    "mind": "white_sox.mind",
+    "model": "white_sox.glb"
+  },
+  {
+    "team": "yankees",
+    "targetIndex": 29,
+    "folder": "yankees",
+    "mind": "yankees.mind",
+    "model": "yankees.glb"
+  }
+]

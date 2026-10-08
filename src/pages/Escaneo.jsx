@@ -5,10 +5,32 @@ import campo from '../assets/img/campo.webp';
 import lockers from '../assets/img/lockers.jpg';
 import butacas from '../assets/img/butacas.webp';
 import Header from '../components/layout/Header';
-import targetFile from '../assets/models/jersey/jersey.mind?url';
-import modelFile from '../assets/models/jersey/jersey.glb?url';
+import modelData from '../data/models.json';
+import targetFile from '../assets/models/targets.mind?url';
 import 'aframe';
 import 'mind-ar-custom-nocanvas/dist/mindar-image-aframe.prod.js';
+
+const modelFiles = import.meta.glob('../assets/models/*/*.glb', {
+  eager: true,
+  import: 'default',
+  query: '?url',
+});
+
+const targetEntries = modelData
+  .filter(({ targetIndex }) => Number.isInteger(targetIndex))
+  .sort((first, second) => first.targetIndex - second.targetIndex)
+  .map(({ team, targetIndex, folder, model }) => ({
+    team,
+    targetIndex,
+    modelUrl: modelFiles[`../assets/models/${folder}/${model}`],
+  }));
+
+const modelAssets = targetEntries.filter(({ modelUrl }, index, entries) =>
+  modelUrl && entries.findIndex((entry) => entry.modelUrl === modelUrl) === index,
+);
+
+const mindArOptions = (targetUrl) =>
+  `imageTargetSrc: ${targetUrl}; autoStart: true; uiLoading: no; uiScanning: no; uiError: no; maxTrack: 1`;
 
 
 const backgroundOptions = [
@@ -21,10 +43,11 @@ const backgroundOptions = [
 export default function Escaneo() {
   const videoRef = useRef(null);
   const sceneRef = useRef(null);
-  const targetRef = useRef(null);
-  const modelRef = useRef(null);
+  const targetRefs = useRef([]);
+  const modelRefs = useRef([]);
   const [cameraError, setCameraError] = useState('');
   const [scanned, setScanned] = useState(false);
+  const [detectedTargetIndex, setDetectedTargetIndex] = useState(null);
   const [effect, setEffect] = useState('');
   const [background, setBackground] = useState('');
   const [animationStopped, setAnimationStopped] = useState(false);
@@ -50,19 +73,38 @@ export default function Escaneo() {
   }, []);
 
   useEffect(() => {
-    const target = targetRef.current;
-    if (!target) return undefined;
+    const listeners = targetRefs.current.map((target, index) => {
+      if (!target) return null;
 
-    const handleTargetFound = () => setScanned(true);
-    target.addEventListener('targetFound', handleTargetFound);
-    return () => target.removeEventListener('targetFound', handleTargetFound);
+      const handleTargetFound = () => {
+        setDetectedTargetIndex(index);
+        setScanned(true);
+      };
+      target.addEventListener('targetFound', handleTargetFound);
+      return () => target.removeEventListener('targetFound', handleTargetFound);
+    });
+
+    return () => listeners.forEach((removeListener) => removeListener?.());
   }, [scanKey]);
+
+  useEffect(() => {
+    modelRefs.current.forEach((model, index) => {
+      if (model) model.object3D.visible = detectedTargetIndex === index;
+    });
+  }, [detectedTargetIndex]);
 
   useEffect(() => {
     const scene = sceneRef.current;
     const system = scene?.systems?.['mindar-image-system'];
     if (!system) return undefined;
 
+    const handleArError = (event) => {
+      console.error('MindAR error', event.detail);
+      setCameraError('No se pudo iniciar el reconocimiento de marcadores.');
+    };
+    scene.addEventListener('arError', handleArError);
+
+    let restartTimeout;
     const restart = () => {
       try {
         system.stop();
@@ -70,7 +112,7 @@ export default function Escaneo() {
         console.warn('MindAR stop error', error);
       }
 
-      window.setTimeout(() => {
+      restartTimeout = window.setTimeout(() => {
         try {
           system.start();
         } catch (error) {
@@ -80,22 +122,25 @@ export default function Escaneo() {
     };
 
     restart();
-    return () => window.clearTimeout(restart);
+    return () => {
+      window.clearTimeout(restartTimeout);
+      scene.removeEventListener('arError', handleArError);
+    };
   }, [scanKey]);
 
   const stopAnimation = () => {
     if (animationStopped) {
       setAnimationStopped(false);
-      if (modelRef.current) {
-        modelRef.current.setAttribute('animation', 'property: rotation; to: 0 360 0; loop: true; dur: 5000; easing: linear');
+      if (detectedTargetIndex !== null && modelRefs.current[detectedTargetIndex]) {
+        modelRefs.current[detectedTargetIndex].setAttribute('animation', 'property: rotation; to: 0 360 0; loop: true; dur: 5000; easing: linear');
       }
       return;
     }
 
     setAnimationStopped(true);
-    if (modelRef.current) {
-      modelRef.current.removeAttribute('animation');
-      modelRef.current.setAttribute('rotation', '0 0 0');
+    if (detectedTargetIndex !== null && modelRefs.current[detectedTargetIndex]) {
+      modelRefs.current[detectedTargetIndex].removeAttribute('animation');
+      modelRefs.current[detectedTargetIndex].setAttribute('rotation', '0 0 0');
     }
   };
 
@@ -115,13 +160,14 @@ export default function Escaneo() {
     window.setTimeout(() => {
       scene.setAttribute(
         'mindar-image',
-        `imageTargetSrc: ${targetFile}; autoStart: true; uiLoading: no; uiScanning: no; uiError: no; maxTrack: 1`,
+        mindArOptions(targetFile),
       );
     }, 50);
   };
 
   const scanAnotherCard = () => {
     setScanned(false);
+    setDetectedTargetIndex(null);
     setEffect('');
     setBackground('');
     setAnimationStopped(false);
@@ -218,30 +264,47 @@ const capturePhoto = async () => {
       <a-scene
         key={scanKey}
         ref={sceneRef}
-        mindar-image={`imageTargetSrc: ${targetFile}; autoStart: true; uiLoading: no; uiScanning: no; uiError: no; maxTrack: 1`}
-        embedded=""
-        color-space="sRGB"
-        renderer="colorManagement: true, physicallyCorrectLights; preserveDrawingBuffer: true"
-        vr-mode-ui="enabled: false"
-        device-orientation-permission-ui="enabled: false"
-        style={{ background: 'transparent' }}
-        className="absolute inset-0 z-10 h-full w-full"
-      >
+        mindar-image={mindArOptions(targetFile)}
+          embedded=""
+          color-space="sRGB"
+          renderer="colorManagement: true, physicallyCorrectLights; preserveDrawingBuffer: true"
+          vr-mode-ui="enabled: false"
+          device-orientation-permission-ui="enabled: false"
+          style={{ background: 'transparent' }}
+          className="absolute inset-0 z-10 h-full w-full"
+        >
         <a-assets>
-          <a-asset-item id="jersey-model" src={modelFile} />
+          {modelAssets.map(({ team, modelUrl }) => (
+            <a-asset-item key={team} id={`${team}-model`} src={modelUrl} />
+          ))}
         </a-assets>
 
         <a-camera position="0 0 0" look-controls="enabled: false" />
-        <a-entity ref={targetRef} mindar-image-target="targetIndex: 0">
-          <a-gltf-model
-            ref={modelRef}
-            src="#jersey-model"
-            position="0 0 0"
-            rotation="0 0 0"
-            scale="1.8 1.8 1.8"
-            animation={scanned && !animationStopped ? 'property: rotation; to: 0 360 0; loop: true; dur: 5000; easing: linear' : undefined}
-          />
-        </a-entity>
+        {targetEntries.map(({ team, targetIndex, modelUrl }) => (
+          <a-entity
+            key={`${team}-${targetIndex}`}
+            ref={(element) => {
+              targetRefs.current[targetIndex] = element;
+            }}
+            mindar-image-target={`targetIndex: ${targetIndex}`}
+          >
+            <a-gltf-model
+              ref={(element) => {
+                modelRefs.current[targetIndex] = element;
+              }}
+              src={modelUrl}
+              position="0 0 0"
+              rotation="0 0 0"
+              scale="1.8 1.8 1.8"
+              visible={detectedTargetIndex === targetIndex}
+              animation={
+                scanned && detectedTargetIndex === targetIndex && !animationStopped
+                  ? 'property: rotation; to: 0 360 0; loop: true; dur: 5000; easing: linear'
+                  : undefined
+              }
+            />
+          </a-entity>
+        ))}
       </a-scene>
 
       {scanned && effect && (
