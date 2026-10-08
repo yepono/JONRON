@@ -1,9 +1,11 @@
+// src/App.jsx (o App_2.jsx)
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import BottomNav from './components/layout/BottomNav';
 import Home from './pages/Home';
 import Videos from './pages/Videos';
 import Calendario from './pages/Calendario';
 import Perfil from './pages/Perfil';
+import Login from './pages/Login'; 
 import Historia from './pages/Historia';
 import Trivia from './pages/Trivia';
 import Juego from './pages/Juego';
@@ -14,17 +16,15 @@ import Torneo from './pages/Torneo';
 export default function App() {
   return (
     <HashRouter>
-      <div className="min-h-screen bg-slate-00 text-slate-900 flex justify-center items-center md:py-6">
-        <div className="w-full max-w-md bg-white min-h-screen md:min-h-844px md:h-844px md:rounded-3xl relative shadow-2xl flex flex-col overflow-hidden">
-
-          <main className="flex-1 overflow-y-auto ">
+      <div className="min-h-screen bg-slate-900 text-slate-900 flex justify-center items-center md:py-6">
+        <div className="w-full max-w-md bg-white min-h-screen md:min-h-[844px] md:h-[844px] md:rounded-3xl relative shadow-2xl flex flex-col overflow-hidden">
+          <main className="flex-1 overflow-y-auto">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/videos" element={<Videos />} />
               <Route path="/calendario" element={<Calendario />} />
               <Route path="/perfil" element={<Perfil />} />
-
-
+              <Route path="/login" element={<Login />} />
               <Route path="/historia" element={<Historia />} />
               <Route path="/trivia" element={<Trivia />} />
               <Route path="/juego" element={<Juego />} />
@@ -33,8 +33,6 @@ export default function App() {
               <Route path="/torneo" element={<Torneo />} />
             </Routes>
           </main>
-
-
           <BottomNav />
         </div>
       </div>
