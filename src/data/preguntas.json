@@ -1,0 +1,1202 @@
+﻿[
+    {
+        "id":  1,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2023?",
+        "opciones":  [
+                         "Texas Rangers",
+                         "Arizona Diamondbacks",
+                         "Houston Astros",
+                         "Atlanta Braves"
+                     ],
+        "correcta":  "Texas Rangers",
+        "explicacion":  "Texas ganó su primer campeonato de la Serie Mundial al vencer a Arizona en cinco juegos en 2023."
+    },
+    {
+        "id":  2,
+        "pregunta":  "¿Cuántos strikes forman un ponche?",
+        "opciones":  [
+                         "Dos",
+                         "Tres",
+                         "Cuatro",
+                         "Cinco"
+                     ],
+        "correcta":  "Tres",
+        "explicacion":  "Un ponche ocurre cuando el bateador acumula tres strikes."
+    },
+    {
+        "id":  3,
+        "pregunta":  "¿Cuántas bases tiene un campo de béisbol?",
+        "opciones":  [
+                         "Tres",
+                         "Cuatro",
+                         "Cinco",
+                         "Seis"
+                     ],
+        "correcta":  "Cuatro",
+        "explicacion":  "El diamante de béisbol tiene cuatro bases: home, primera, segunda y tercera."
+    },
+    {
+        "id":  4,
+        "pregunta":  "¿Qué equipo juega sus partidos como local en Fenway Park?",
+        "opciones":  [
+                         "New York Yankees",
+                         "Boston Red Sox",
+                         "Chicago Cubs",
+                         "Baltimore Orioles"
+                     ],
+        "correcta":  "Boston Red Sox",
+        "explicacion":  "Fenway Park es la casa histórica de los Boston Red Sox desde 1912."
+    },
+    {
+        "id":  5,
+        "pregunta":  "¿Qué jugador es conocido como \u0027The Iron Horse\u0027?",
+        "opciones":  [
+                         "Babe Ruth",
+                         "Lou Gehrig",
+                         "Joe DiMaggio",
+                         "Mickey Mantle"
+                     ],
+        "correcta":  "Lou Gehrig",
+        "explicacion":  "Lou Gehrig recibió el apodo Iron Horse por su durabilidad y su racha de 2,130 juegos consecutivos."
+    },
+    {
+        "id":  6,
+        "pregunta":  "¿Cuántos outs tiene cada equipo en una entrada?",
+        "opciones":  [
+                         "Dos",
+                         "Tres",
+                         "Cuatro",
+                         "Seis"
+                     ],
+        "correcta":  "Tres",
+        "explicacion":  "Cada equipo tiene tres outs para terminar su turno ofensivo en una entrada."
+    },
+    {
+        "id":  7,
+        "pregunta":  "¿Qué equipo tiene su sede en Toronto?",
+        "opciones":  [
+                         "Toronto Blue Jays",
+                         "Seattle Mariners",
+                         "Minnesota Twins",
+                         "Tampa Bay Rays"
+                     ],
+        "correcta":  "Toronto Blue Jays",
+        "explicacion":  "Los Toronto Blue Jays son el único equipo de MLB con sede en Canadá."
+    },
+    {
+        "id":  8,
+        "pregunta":  "¿Cómo se llama un batazo que sale del campo por encima de la cerca?",
+        "opciones":  [
+                         "Doble play",
+                         "Home run",
+                         "Bunt",
+                         "Robo de base"
+                     ],
+        "correcta":  "Home run",
+        "explicacion":  "Un home run permite al bateador recorrer todas las bases después de sacar la pelota del campo."
+    },
+    {
+        "id":  9,
+        "pregunta":  "¿Qué equipo juega en Wrigley Field?",
+        "opciones":  [
+                         "Chicago Cubs",
+                         "Chicago White Sox",
+                         "Detroit Tigers",
+                         "Cincinnati Reds"
+                     ],
+        "correcta":  "Chicago Cubs",
+        "explicacion":  "Wrigley Field es el estadio de los Chicago Cubs y uno de los parques más antiguos de MLB."
+    },
+    {
+        "id":  10,
+        "pregunta":  "¿Qué premio recibe el mejor jugador de cada liga durante la temporada?",
+        "opciones":  [
+                         "Cy Young",
+                         "MVP",
+                         "Guante de Oro",
+                         "Silver Slugger"
+                     ],
+        "correcta":  "MVP",
+        "explicacion":  "El premio MVP reconoce al jugador más valioso de cada liga durante la temporada regular."
+    },
+    {
+        "id":  11,
+        "pregunta":  "¿Qué equipo juega en el Dodger Stadium?",
+        "opciones":  [
+                         "Los Angeles Angels",
+                         "Los Angeles Dodgers",
+                         "San Diego Padres",
+                         "San Francisco Giants"
+                     ],
+        "correcta":  "Los Angeles Dodgers",
+        "explicacion":  "Dodger Stadium es la casa de Los Angeles Dodgers desde 1962."
+    },
+    {
+        "id":  12,
+        "pregunta":  "¿Cuántos jugadores defensivos hay en el campo?",
+        "opciones":  [
+                         "Ocho",
+                         "Nueve",
+                         "Diez",
+                         "Once"
+                     ],
+        "correcta":  "Nueve",
+        "explicacion":  "La defensa utiliza nueve jugadores: lanzador, receptor, cuadro interior y jardineros."
+    },
+    {
+        "id":  13,
+        "pregunta":  "¿Qué lanzamiento suele describirse como una bola que rompe hacia abajo?",
+        "opciones":  [
+                         "Slider",
+                         "Curva",
+                         "Recta",
+                         "Cambio"
+                     ],
+        "correcta":  "Curva",
+        "explicacion":  "La curva es un lanzamiento que cambia de dirección y generalmente cae al acercarse al plato."
+    },
+    {
+        "id":  14,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2016?",
+        "opciones":  [
+                         "Cleveland Indians",
+                         "Chicago Cubs",
+                         "Kansas City Royals",
+                         "New York Mets"
+                     ],
+        "correcta":  "Chicago Cubs",
+        "explicacion":  "Los Cubs rompieron una sequía de 108 años al ganar la Serie Mundial de 2016."
+    },
+    {
+        "id":  15,
+        "pregunta":  "¿Qué jugador tiene el récord histórico de más home runs en MLB?",
+        "opciones":  [
+                         "Hank Aaron",
+                         "Babe Ruth",
+                         "Barry Bonds",
+                         "Alex Rodriguez"
+                     ],
+        "correcta":  "Barry Bonds",
+        "explicacion":  "Barry Bonds terminó su carrera con 762 home runs, el récord histórico de MLB."
+    },
+    {
+        "id":  16,
+        "pregunta":  "¿Qué posición normalmente usa el número 1 en la alineación?",
+        "opciones":  [
+                         "Primer bate",
+                         "Receptor",
+                         "Lanzador",
+                         "Tercera base"
+                     ],
+        "correcta":  "Primer bate",
+        "explicacion":  "El primer bate suele ocupar el primer lugar porque busca embasarse y crear oportunidades de carrera."
+    },
+    {
+        "id":  17,
+        "pregunta":  "¿En qué mes suele comenzar la temporada regular de MLB?",
+        "opciones":  [
+                         "Enero",
+                         "Marzo o abril",
+                         "Junio",
+                         "Septiembre"
+                     ],
+        "correcta":  "Marzo o abril",
+        "explicacion":  "La temporada regular normalmente inicia entre finales de marzo y principios de abril."
+    },
+    {
+        "id":  18,
+        "pregunta":  "¿Qué equipo es conocido como los Yankees?",
+        "opciones":  [
+                         "New York Yankees",
+                         "New York Mets",
+                         "Washington Nationals",
+                         "Philadelphia Phillies"
+                     ],
+        "correcta":  "New York Yankees",
+        "explicacion":  "Los New York Yankees son uno de los equipos más reconocidos y ganadores de la historia de MLB."
+    },
+    {
+        "id":  19,
+        "pregunta":  "¿Qué significa RBI en las estadísticas de béisbol?",
+        "opciones":  [
+                         "Bases robadas",
+                         "Carreras impulsadas",
+                         "Bateos recibidos",
+                         "Entradas lanzadas"
+                     ],
+        "correcta":  "Carreras impulsadas",
+        "explicacion":  "RBI significa carreras impulsadas: carreras que anotan gracias a la acción del bateador."
+    },
+    {
+        "id":  20,
+        "pregunta":  "¿Qué trofeo se entrega al campeón de la Serie Mundial?",
+        "opciones":  [
+                         "Trofeo Cy Young",
+                         "Trofeo de la Comisión",
+                         "Copa Stanley",
+                         "Trofeo Heisman"
+                     ],
+        "correcta":  "Trofeo de la Comisión",
+        "explicacion":  "El Trofeo de la Comisión se entrega al campeón de la Serie Mundial."
+    },
+    {
+        "id":  21,
+        "pregunta":  "¿Qué equipo juega en Coors Field?",
+        "opciones":  [
+                         "Colorado Rockies",
+                         "Kansas City Royals",
+                         "Milwaukee Brewers",
+                         "Arizona Diamondbacks"
+                     ],
+        "correcta":  "Colorado Rockies",
+        "explicacion":  "Coors Field es el estadio de los Colorado Rockies y está ubicado en Denver."
+    },
+    {
+        "id":  22,
+        "pregunta":  "¿Qué jugador dominicano ganó tres premios MVP de la Liga Nacional?",
+        "opciones":  [
+                         "Albert Pujols",
+                         "Alex Rodriguez",
+                         "Miguel Cabrera",
+                         "David Ortiz"
+                     ],
+        "correcta":  "Albert Pujols",
+        "explicacion":  "Albert Pujols ganó tres premios MVP de la Liga Nacional durante su etapa con los Cardinals."
+    },
+    {
+        "id":  23,
+        "pregunta":  "¿Qué es un juego perfecto?",
+        "opciones":  [
+                         "Un juego sin errores",
+                         "Un juego sin hits ni carreras",
+                         "Un juego sin corredores en base",
+                         "Un juego con nueve ponches"
+                     ],
+        "correcta":  "Un juego sin corredores en base",
+        "explicacion":  "En un juego perfecto ningún bateador rival llega a primera base; es una hazaña más rara que un no-hitter."
+    },
+    {
+        "id":  24,
+        "pregunta":  "¿Qué equipo juega en Oracle Park?",
+        "opciones":  [
+                         "Oakland Athletics",
+                         "San Francisco Giants",
+                         "Seattle Mariners",
+                         "Los Angeles Dodgers"
+                     ],
+        "correcta":  "San Francisco Giants",
+        "explicacion":  "Oracle Park es el estadio de los San Francisco Giants junto a la bahía de San Francisco."
+    },
+    {
+        "id":  25,
+        "pregunta":  "¿Qué equipo ganó la primera Serie Mundial en 1903?",
+        "opciones":  [
+                         "Boston Americans",
+                         "New York Giants",
+                         "Chicago Cubs",
+                         "Pittsburgh Pirates"
+                     ],
+        "correcta":  "Boston Americans",
+        "explicacion":  "Los Boston Americans, posteriormente Red Sox, ganaron la primera Serie Mundial moderna en 1903."
+    },
+    {
+        "id":  26,
+        "pregunta":  "¿Qué jugador es conocido como \u0027The Bambino\u0027?",
+        "opciones":  [
+                         "Babe Ruth",
+                         "Lou Gehrig",
+                         "Ty Cobb",
+                         "Willie Mays"
+                     ],
+        "correcta":  "Babe Ruth",
+        "explicacion":  "Babe Ruth fue conocido como The Bambino por su enorme impacto como bateador y figura popular."
+    },
+    {
+        "id":  27,
+        "pregunta":  "¿Qué equipo juega en Camden Yards?",
+        "opciones":  [
+                         "Baltimore Orioles",
+                         "Washington Nationals",
+                         "Philadelphia Phillies",
+                         "Pittsburgh Pirates"
+                     ],
+        "correcta":  "Baltimore Orioles",
+        "explicacion":  "Camden Yards es el estadio de los Baltimore Orioles y es famoso por inspirar parques retro modernos."
+    },
+    {
+        "id":  28,
+        "pregunta":  "¿Cuántas entradas tiene un juego regular de MLB?",
+        "opciones":  [
+                         "Siete",
+                         "Ocho",
+                         "Nueve",
+                         "Diez"
+                     ],
+        "correcta":  "Nueve",
+        "explicacion":  "Un juego regular de MLB dura nueve entradas, salvo que haya empate y se jueguen extra innings."
+    },
+    {
+        "id":  29,
+        "pregunta":  "¿Qué premio se entrega al mejor lanzador de cada liga?",
+        "opciones":  [
+                         "MVP",
+                         "Cy Young",
+                         "Guante de Oro",
+                         "Silver Slugger"
+                     ],
+        "correcta":  "Cy Young",
+        "explicacion":  "El Cy Young se otorga al mejor lanzador de cada liga."
+    },
+    {
+        "id":  30,
+        "pregunta":  "¿Qué equipo juega en Minute Maid Park?",
+        "opciones":  [
+                         "Houston Astros",
+                         "Texas Rangers",
+                         "Miami Marlins",
+                         "Tampa Bay Rays"
+                     ],
+        "correcta":  "Houston Astros",
+        "explicacion":  "Minute Maid Park es el estadio de los Houston Astros."
+    },
+    {
+        "id":  31,
+        "pregunta":  "¿Qué jugador conectó 56 juegos seguidos con al menos un hit?",
+        "opciones":  [
+                         "Joe DiMaggio",
+                         "Pete Rose",
+                         "Ted Williams",
+                         "Cal Ripken Jr."
+                     ],
+        "correcta":  "Joe DiMaggio",
+        "explicacion":  "Joe DiMaggio logró una racha récord de 56 juegos consecutivos conectando al menos un hit en 1941."
+    },
+    {
+        "id":  32,
+        "pregunta":  "¿Qué equipo juega en Busch Stadium?",
+        "opciones":  [
+                         "St. Louis Cardinals",
+                         "Kansas City Royals",
+                         "Milwaukee Brewers",
+                         "Chicago Cubs"
+                     ],
+        "correcta":  "St. Louis Cardinals",
+        "explicacion":  "Busch Stadium es la casa de los St. Louis Cardinals."
+    },
+    {
+        "id":  33,
+        "pregunta":  "¿Qué es un doble play?",
+        "opciones":  [
+                         "Dos carreras en una jugada",
+                         "Dos outs en una misma jugada",
+                         "Dos hits consecutivos",
+                         "Dos bases robadas"
+                     ],
+        "correcta":  "Dos outs en una misma jugada",
+        "explicacion":  "Un doble play produce dos outs durante la misma jugada, normalmente con corredores en base."
+    },
+    {
+        "id":  34,
+        "pregunta":  "¿Qué equipo juega en Citi Field?",
+        "opciones":  [
+                         "New York Mets",
+                         "New York Yankees",
+                         "Boston Red Sox",
+                         "Philadelphia Phillies"
+                     ],
+        "correcta":  "New York Mets",
+        "explicacion":  "Citi Field es el estadio de los New York Mets."
+    },
+    {
+        "id":  35,
+        "pregunta":  "¿Qué jugador es famoso por sus atrapadas en el jardín central de los Giants?",
+        "opciones":  [
+                         "Willie Mays",
+                         "Roberto Clemente",
+                         "Ken Griffey Jr.",
+                         "Hank Aaron"
+                     ],
+        "correcta":  "Willie Mays",
+        "explicacion":  "Willie Mays destacó en el jardín central y realizó una de las atrapadas más famosas de la historia."
+    },
+    {
+        "id":  36,
+        "pregunta":  "¿Qué equipo juega en T-Mobile Park?",
+        "opciones":  [
+                         "Seattle Mariners",
+                         "Minnesota Twins",
+                         "Toronto Blue Jays",
+                         "Oakland Athletics"
+                     ],
+        "correcta":  "Seattle Mariners",
+        "explicacion":  "T-Mobile Park es el estadio de los Seattle Mariners."
+    },
+    {
+        "id":  37,
+        "pregunta":  "¿Qué significa ERA en las estadísticas de un lanzador?",
+        "opciones":  [
+                         "Efectividad de carreras limpias",
+                         "Entradas recorridas acumuladas",
+                         "Errores registrados anualmente",
+                         "Eficiencia de robo de bases"
+                     ],
+        "correcta":  "Efectividad de carreras limpias",
+        "explicacion":  "ERA mide el promedio de carreras limpias que un lanzador permite por cada nueve entradas."
+    },
+    {
+        "id":  38,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2019?",
+        "opciones":  [
+                         "Washington Nationals",
+                         "Houston Astros",
+                         "Boston Red Sox",
+                         "Los Angeles Dodgers"
+                     ],
+        "correcta":  "Washington Nationals",
+        "explicacion":  "Washington ganó su primera Serie Mundial en 2019 al derrotar a Houston."
+    },
+    {
+        "id":  39,
+        "pregunta":  "¿Qué jugador fue apodado \u0027Mr. October\u0027?",
+        "opciones":  [
+                         "Reggie Jackson",
+                         "Derek Jeter",
+                         "Cal Ripken Jr.",
+                         "Tony Gwynn"
+                     ],
+        "correcta":  "Reggie Jackson",
+        "explicacion":  "Reggie Jackson recibió el apodo Mr. October por su extraordinario rendimiento en postemporada."
+    },
+    {
+        "id":  40,
+        "pregunta":  "¿Qué equipo juega en Progressive Field?",
+        "opciones":  [
+                         "Cleveland Guardians",
+                         "Detroit Tigers",
+                         "Cincinnati Reds",
+                         "Pittsburgh Pirates"
+                     ],
+        "correcta":  "Cleveland Guardians",
+        "explicacion":  "Progressive Field es la casa de los Cleveland Guardians."
+    },
+    {
+        "id":  41,
+        "pregunta":  "¿Cuántas bolas recibe un bateador para obtener una base por bolas?",
+        "opciones":  [
+                         "Tres",
+                         "Cuatro",
+                         "Cinco",
+                         "Seis"
+                     ],
+        "correcta":  "Cuatro",
+        "explicacion":  "Cuatro bolas fuera de la zona de strike le dan al bateador una base por bolas."
+    },
+    {
+        "id":  42,
+        "pregunta":  "¿Qué equipo juega en Truist Park?",
+        "opciones":  [
+                         "Atlanta Braves",
+                         "Miami Marlins",
+                         "Tampa Bay Rays",
+                         "Philadelphia Phillies"
+                     ],
+        "correcta":  "Atlanta Braves",
+        "explicacion":  "Truist Park es el estadio de los Atlanta Braves."
+    },
+    {
+        "id":  43,
+        "pregunta":  "¿Qué jugador ganó la Triple Corona de bateo en 2012?",
+        "opciones":  [
+                         "Miguel Cabrera",
+                         "Mike Trout",
+                         "Albert Pujols",
+                         "Adrian Beltre"
+                     ],
+        "correcta":  "Miguel Cabrera",
+        "explicacion":  "Miguel Cabrera ganó la Triple Corona de bateo de la Liga Americana en 2012."
+    },
+    {
+        "id":  44,
+        "pregunta":  "¿Qué equipo juega en Kauffman Stadium?",
+        "opciones":  [
+                         "Kansas City Royals",
+                         "St. Louis Cardinals",
+                         "Texas Rangers",
+                         "Minnesota Twins"
+                     ],
+        "correcta":  "Kansas City Royals",
+        "explicacion":  "Kauffman Stadium es el hogar de los Kansas City Royals."
+    },
+    {
+        "id":  45,
+        "pregunta":  "¿Qué es un balk?",
+        "opciones":  [
+                         "Un movimiento ilegal del lanzador",
+                         "Un batazo de foul",
+                         "Un robo de home",
+                         "Un error del jardinero"
+                     ],
+        "correcta":  "Un movimiento ilegal del lanzador",
+        "explicacion":  "Un balk es un movimiento ilegal del lanzador que puede permitir el avance de los corredores."
+    },
+    {
+        "id":  46,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2004?",
+        "opciones":  [
+                         "Boston Red Sox",
+                         "St. Louis Cardinals",
+                         "New York Yankees",
+                         "Chicago White Sox"
+                     ],
+        "correcta":  "Boston Red Sox",
+        "explicacion":  "Boston rompió la Maldición del Bambino al ganar la Serie Mundial de 2004."
+    },
+    {
+        "id":  47,
+        "pregunta":  "¿Qué jugador es conocido como \u0027The Kid\u0027?",
+        "opciones":  [
+                         "Ken Griffey Jr.",
+                         "Ernie Banks",
+                         "Frank Thomas",
+                         "Nolan Ryan"
+                     ],
+        "correcta":  "Ken Griffey Jr.",
+        "explicacion":  "Ken Griffey Jr. fue apodado The Kid por su juventud, talento y popularidad."
+    },
+    {
+        "id":  48,
+        "pregunta":  "¿Qué equipo juega en Globe Life Field?",
+        "opciones":  [
+                         "Texas Rangers",
+                         "Houston Astros",
+                         "Arizona Diamondbacks",
+                         "Colorado Rockies"
+                     ],
+        "correcta":  "Texas Rangers",
+        "explicacion":  "Globe Life Field es el estadio de los Texas Rangers."
+    },
+    {
+        "id":  49,
+        "pregunta":  "¿Qué posición ocupa normalmente el jugador detrás del home?",
+        "opciones":  [
+                         "Receptor",
+                         "Campocorto",
+                         "Primera base",
+                         "Lanzador"
+                     ],
+        "correcta":  "Receptor",
+        "explicacion":  "El receptor se coloca detrás del home para recibir los lanzamientos y dirigir la defensa."
+    },
+    {
+        "id":  50,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2010?",
+        "opciones":  [
+                         "San Francisco Giants",
+                         "Texas Rangers",
+                         "Philadelphia Phillies",
+                         "New York Yankees"
+                     ],
+        "correcta":  "San Francisco Giants",
+        "explicacion":  "San Francisco ganó la Serie Mundial de 2010 con una de las mejores rotaciones de pitcheo del torneo."
+    },
+    {
+        "id":  51,
+        "pregunta":  "¿Qué jugador tiene el récord de más juegos consecutivos jugados?",
+        "opciones":  [
+                         "Cal Ripken Jr.",
+                         "Lou Gehrig",
+                         "Pete Rose",
+                         "Derek Jeter"
+                     ],
+        "correcta":  "Cal Ripken Jr.",
+        "explicacion":  "Cal Ripken Jr. jugó 2,632 partidos consecutivos, una racha conocida como The Streak."
+    },
+    {
+        "id":  52,
+        "pregunta":  "¿Qué equipo juega en Petco Park?",
+        "opciones":  [
+                         "San Diego Padres",
+                         "Los Angeles Angels",
+                         "San Francisco Giants",
+                         "Arizona Diamondbacks"
+                     ],
+        "correcta":  "San Diego Padres",
+        "explicacion":  "Petco Park es el estadio de los San Diego Padres."
+    },
+    {
+        "id":  53,
+        "pregunta":  "¿Qué significa OPS?",
+        "opciones":  [
+                         "Porcentaje de embasarse más slugging",
+                         "Outs por temporada",
+                         "Orden de pitcheo semanal",
+                         "Oportunidades por strike"
+                     ],
+        "correcta":  "Porcentaje de embasarse más slugging",
+        "explicacion":  "OPS combina el porcentaje de embasarse y el slugging para medir la producción ofensiva."
+    },
+    {
+        "id":  54,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2015?",
+        "opciones":  [
+                         "Kansas City Royals",
+                         "New York Mets",
+                         "Toronto Blue Jays",
+                         "Chicago Cubs"
+                     ],
+        "correcta":  "Kansas City Royals",
+        "explicacion":  "Kansas City venció a los New York Mets para ganar la Serie Mundial de 2015."
+    },
+    {
+        "id":  55,
+        "pregunta":  "¿Qué jugador fue apodado \u0027The Big Unit\u0027?",
+        "opciones":  [
+                         "Randy Johnson",
+                         "Nolan Ryan",
+                         "Pedro Martinez",
+                         "Roger Clemens"
+                     ],
+        "correcta":  "Randy Johnson",
+        "explicacion":  "Randy Johnson fue apodado The Big Unit por su gran estatura y su dominante recta."
+    },
+    {
+        "id":  56,
+        "pregunta":  "¿Qué equipo juega en Target Field?",
+        "opciones":  [
+                         "Minnesota Twins",
+                         "Chicago White Sox",
+                         "Detroit Tigers",
+                         "Milwaukee Brewers"
+                     ],
+        "correcta":  "Minnesota Twins",
+        "explicacion":  "Target Field es la casa de los Minnesota Twins."
+    },
+    {
+        "id":  57,
+        "pregunta":  "¿Qué es un sacrifice fly?",
+        "opciones":  [
+                         "Un elevado que permite anotar una carrera",
+                         "Un fly atrapado para un doble play",
+                         "Un home run con bases llenas",
+                         "Un toque de sacrificio"
+                     ],
+        "correcta":  "Un elevado que permite anotar una carrera",
+        "explicacion":  "Un sacrifice fly es un elevado atrapado que permite a un corredor anotar después del contacto."
+    },
+    {
+        "id":  58,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2005?",
+        "opciones":  [
+                         "Chicago White Sox",
+                         "Houston Astros",
+                         "St. Louis Cardinals",
+                         "Detroit Tigers"
+                     ],
+        "correcta":  "Chicago White Sox",
+        "explicacion":  "Los Chicago White Sox barrieron a Houston para ganar la Serie Mundial de 2005."
+    },
+    {
+        "id":  59,
+        "pregunta":  "¿Qué jugador acumuló más de 4,000 hits en MLB?",
+        "opciones":  [
+                         "Pete Rose",
+                         "Ichiro Suzuki",
+                         "Derek Jeter",
+                         "Tony Gwynn"
+                     ],
+        "correcta":  "Pete Rose",
+        "explicacion":  "Pete Rose acumuló 4,256 hits, la mayor cantidad en la historia de MLB."
+    },
+    {
+        "id":  60,
+        "pregunta":  "¿Qué equipo juega en Citizens Bank Park?",
+        "opciones":  [
+                         "Philadelphia Phillies",
+                         "Pittsburgh Pirates",
+                         "Washington Nationals",
+                         "Baltimore Orioles"
+                     ],
+        "correcta":  "Philadelphia Phillies",
+        "explicacion":  "Citizens Bank Park es el estadio de los Philadelphia Phillies."
+    },
+    {
+        "id":  61,
+        "pregunta":  "¿Qué es un inning?",
+        "opciones":  [
+                         "Una entrada",
+                         "Un lanzamiento",
+                         "Una carrera",
+                         "Un turno al bate"
+                     ],
+        "correcta":  "Una entrada",
+        "explicacion":  "Inning es el término en inglés para una entrada, en la que ambos equipos batean y defienden."
+    },
+    {
+        "id":  62,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2012?",
+        "opciones":  [
+                         "San Francisco Giants",
+                         "Detroit Tigers",
+                         "St. Louis Cardinals",
+                         "Boston Red Sox"
+                     ],
+        "correcta":  "San Francisco Giants",
+        "explicacion":  "Los Giants barrieron a los Detroit Tigers en la Serie Mundial de 2012."
+    },
+    {
+        "id":  63,
+        "pregunta":  "¿Qué jugador es conocido como \u0027Big Papi\u0027?",
+        "opciones":  [
+                         "David Ortiz",
+                         "Manny Ramirez",
+                         "Pedro Martinez",
+                         "Robinson Cano"
+                     ],
+        "correcta":  "David Ortiz",
+        "explicacion":  "David Ortiz fue llamado Big Papi por los aficionados y se convirtió en símbolo de Boston."
+    },
+    {
+        "id":  64,
+        "pregunta":  "¿Qué equipo juega en Great American Ball Park?",
+        "opciones":  [
+                         "Cincinnati Reds",
+                         "Cleveland Guardians",
+                         "Pittsburgh Pirates",
+                         "Chicago Cubs"
+                     ],
+        "correcta":  "Cincinnati Reds",
+        "explicacion":  "Great American Ball Park es el estadio de los Cincinnati Reds."
+    },
+    {
+        "id":  65,
+        "pregunta":  "¿Cuántos strikes necesita un lanzador para ponchar a un bateador?",
+        "opciones":  [
+                         "Dos",
+                         "Tres",
+                         "Cuatro",
+                         "Depende del inning"
+                     ],
+        "correcta":  "Tres",
+        "explicacion":  "Tres strikes son suficientes para retirar a un bateador por ponche."
+    },
+    {
+        "id":  66,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2020?",
+        "opciones":  [
+                         "Los Angeles Dodgers",
+                         "Tampa Bay Rays",
+                         "Atlanta Braves",
+                         "Houston Astros"
+                     ],
+        "correcta":  "Los Angeles Dodgers",
+        "explicacion":  "Los Dodgers vencieron a Tampa Bay en la Serie Mundial de 2020."
+    },
+    {
+        "id":  67,
+        "pregunta":  "¿Qué jugador es conocido como \u0027The Say Hey Kid\u0027?",
+        "opciones":  [
+                         "Willie Mays",
+                         "Mickey Mantle",
+                         "Hank Aaron",
+                         "Roberto Clemente"
+                     ],
+        "correcta":  "Willie Mays",
+        "explicacion":  "Willie Mays recibió el apodo The Say Hey Kid durante su legendaria carrera."
+    },
+    {
+        "id":  68,
+        "pregunta":  "¿Qué equipo juega en Tropicana Field?",
+        "opciones":  [
+                         "Tampa Bay Rays",
+                         "Miami Marlins",
+                         "Orlando Magic",
+                         "Atlanta Braves"
+                     ],
+        "correcta":  "Tampa Bay Rays",
+        "explicacion":  "Tropicana Field fue la casa de los Tampa Bay Rays."
+    },
+    {
+        "id":  69,
+        "pregunta":  "¿Qué estadística mide los home runs conectados por un bateador?",
+        "opciones":  [
+                         "HR",
+                         "RBI",
+                         "WHIP",
+                         "ERA"
+                     ],
+        "correcta":  "HR",
+        "explicacion":  "HR es la abreviatura estadística de home runs."
+    },
+    {
+        "id":  70,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2011?",
+        "opciones":  [
+                         "St. Louis Cardinals",
+                         "Texas Rangers",
+                         "Milwaukee Brewers",
+                         "Philadelphia Phillies"
+                     ],
+        "correcta":  "St. Louis Cardinals",
+        "explicacion":  "St. Louis derrotó a Texas en una Serie Mundial de 2011 que llegó al séptimo juego."
+    },
+    {
+        "id":  71,
+        "pregunta":  "¿Qué jugador ganó siete premios MVP de la Liga Nacional?",
+        "opciones":  [
+                         "Barry Bonds",
+                         "Mike Trout",
+                         "Babe Ruth",
+                         "Hank Aaron"
+                     ],
+        "correcta":  "Barry Bonds",
+        "explicacion":  "Barry Bonds ganó siete premios MVP, más que cualquier otro jugador de MLB."
+    },
+    {
+        "id":  72,
+        "pregunta":  "¿Qué equipo juega en Comerica Park?",
+        "opciones":  [
+                         "Detroit Tigers",
+                         "Cleveland Guardians",
+                         "Chicago Cubs",
+                         "Milwaukee Brewers"
+                     ],
+        "correcta":  "Detroit Tigers",
+        "explicacion":  "Comerica Park es el estadio de los Detroit Tigers."
+    },
+    {
+        "id":  73,
+        "pregunta":  "¿Qué es un toque de bola?",
+        "opciones":  [
+                         "Un bunt",
+                         "Un slider",
+                         "Un jonrón",
+                         "Un robo de base"
+                     ],
+        "correcta":  "Un bunt",
+        "explicacion":  "Un bunt es un toque de bola en el que el bateador amortigua el lanzamiento."
+    },
+    {
+        "id":  74,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2017?",
+        "opciones":  [
+                         "Houston Astros",
+                         "Los Angeles Dodgers",
+                         "Chicago Cubs",
+                         "Washington Nationals"
+                     ],
+        "correcta":  "Houston Astros",
+        "explicacion":  "Houston derrotó a los Dodgers para ganar la Serie Mundial de 2017."
+    },
+    {
+        "id":  75,
+        "pregunta":  "¿Qué jugador es conocido como \u0027The Wizard of Oz\u0027?",
+        "opciones":  [
+                         "Ozzie Smith",
+                         "Barry Larkin",
+                         "Cal Ripken Jr.",
+                         "Derek Jeter"
+                     ],
+        "correcta":  "Ozzie Smith",
+        "explicacion":  "Ozzie Smith fue apodado The Wizard of Oz por sus extraordinarias jugadas como campocorto."
+    },
+    {
+        "id":  76,
+        "pregunta":  "¿Qué equipo juega en American Family Field?",
+        "opciones":  [
+                         "Milwaukee Brewers",
+                         "Minnesota Twins",
+                         "Chicago White Sox",
+                         "St. Louis Cardinals"
+                     ],
+        "correcta":  "Milwaukee Brewers",
+        "explicacion":  "American Family Field es la casa de los Milwaukee Brewers."
+    },
+    {
+        "id":  77,
+        "pregunta":  "¿Qué significa WHIP para un lanzador?",
+        "opciones":  [
+                         "Bases por bolas y hits por entrada lanzada",
+                         "Victorias y hits permitidos",
+                         "Wild pitches en innings completos",
+                         "Win percentage histórico"
+                     ],
+        "correcta":  "Bases por bolas y hits por entrada lanzada",
+        "explicacion":  "WHIP suma bases por bolas y hits permitidos, y los divide entre las entradas lanzadas."
+    },
+    {
+        "id":  78,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2001?",
+        "opciones":  [
+                         "Arizona Diamondbacks",
+                         "New York Yankees",
+                         "Seattle Mariners",
+                         "Oakland Athletics"
+                     ],
+        "correcta":  "Arizona Diamondbacks",
+        "explicacion":  "Arizona derrotó a los Yankees en la Serie Mundial de 2001."
+    },
+    {
+        "id":  79,
+        "pregunta":  "¿Qué jugador es conocido como \u0027Pudge\u0027?",
+        "opciones":  [
+                         "Ivan Rodriguez",
+                         "Jorge Posada",
+                         "Yadier Molina",
+                         "Johnny Bench"
+                     ],
+        "correcta":  "Ivan Rodriguez",
+        "explicacion":  "Ivan Rodriguez fue conocido como Pudge y es considerado uno de los mejores receptores defensivos."
+    },
+    {
+        "id":  80,
+        "pregunta":  "¿Qué equipo juega en Chase Field?",
+        "opciones":  [
+                         "Arizona Diamondbacks",
+                         "Colorado Rockies",
+                         "San Diego Padres",
+                         "Texas Rangers"
+                     ],
+        "correcta":  "Arizona Diamondbacks",
+        "explicacion":  "Chase Field es el estadio de los Arizona Diamondbacks."
+    },
+    {
+        "id":  81,
+        "pregunta":  "¿Qué sucede cuando una pelota bateada sale de foul?",
+        "opciones":  [
+                         "Se marca como strike en la mayoría de los casos",
+                         "Siempre es un out",
+                         "El bateador avanza a segunda",
+                         "Se anota una carrera"
+                     ],
+        "correcta":  "Se marca como strike en la mayoría de los casos",
+        "explicacion":  "Una pelota de foul suele contar como strike, excepto cuando ya hay dos strikes."
+    },
+    {
+        "id":  82,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2013?",
+        "opciones":  [
+                         "Boston Red Sox",
+                         "St. Louis Cardinals",
+                         "Detroit Tigers",
+                         "Los Angeles Dodgers"
+                     ],
+        "correcta":  "Boston Red Sox",
+        "explicacion":  "Boston venció a St. Louis para ganar la Serie Mundial de 2013."
+    },
+    {
+        "id":  83,
+        "pregunta":  "¿Qué jugador es conocido como \u0027The Big Hurt\u0027?",
+        "opciones":  [
+                         "Frank Thomas",
+                         "David Ortiz",
+                         "Frank Robinson",
+                         "Mark McGwire"
+                     ],
+        "correcta":  "Frank Thomas",
+        "explicacion":  "Frank Thomas recibió el apodo The Big Hurt por su poderoso bateo."
+    },
+    {
+        "id":  84,
+        "pregunta":  "¿Qué equipo juega en Guaranteed Rate Field?",
+        "opciones":  [
+                         "Chicago White Sox",
+                         "Chicago Cubs",
+                         "Cleveland Guardians",
+                         "Detroit Tigers"
+                     ],
+        "correcta":  "Chicago White Sox",
+        "explicacion":  "Guaranteed Rate Field es el estadio de los Chicago White Sox."
+    },
+    {
+        "id":  85,
+        "pregunta":  "¿Qué es un save en las estadísticas de un lanzador?",
+        "opciones":  [
+                         "Una victoria preservada por un relevista",
+                         "Un juego sin hits",
+                         "Un ponche con bases llenas",
+                         "Una entrada sin carreras"
+                     ],
+        "correcta":  "Una victoria preservada por un relevista",
+        "explicacion":  "Un relevista obtiene un save cuando termina una victoria de su equipo bajo las condiciones oficiales."
+    },
+    {
+        "id":  86,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 2008?",
+        "opciones":  [
+                         "Philadelphia Phillies",
+                         "Tampa Bay Rays",
+                         "Boston Red Sox",
+                         "New York Yankees"
+                     ],
+        "correcta":  "Philadelphia Phillies",
+        "explicacion":  "Philadelphia derrotó a Tampa Bay para ganar la Serie Mundial de 2008."
+    },
+    {
+        "id":  87,
+        "pregunta":  "¿Qué jugador conectó 755 home runs en su carrera?",
+        "opciones":  [
+                         "Hank Aaron",
+                         "Babe Ruth",
+                         "Willie Mays",
+                         "Ken Griffey Jr."
+                     ],
+        "correcta":  "Hank Aaron",
+        "explicacion":  "Hank Aaron conectó 755 home runs durante su carrera en MLB."
+    },
+    {
+        "id":  88,
+        "pregunta":  "¿Qué equipo juega en PNC Park?",
+        "opciones":  [
+                         "Pittsburgh Pirates",
+                         "Philadelphia Phillies",
+                         "Cincinnati Reds",
+                         "Cleveland Guardians"
+                     ],
+        "correcta":  "Pittsburgh Pirates",
+        "explicacion":  "PNC Park es la casa de los Pittsburgh Pirates."
+    },
+    {
+        "id":  89,
+        "pregunta":  "¿Qué es un no-hitter?",
+        "opciones":  [
+                         "Un juego sin hits permitidos",
+                         "Un juego sin carreras",
+                         "Un juego sin errores",
+                         "Un juego sin ponches"
+                     ],
+        "correcta":  "Un juego sin hits permitidos",
+        "explicacion":  "Un no-hitter ocurre cuando un equipo no permite hits durante todo el juego."
+    },
+    {
+        "id":  90,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 1997?",
+        "opciones":  [
+                         "Florida Marlins",
+                         "Cleveland Indians",
+                         "New York Yankees",
+                         "Atlanta Braves"
+                     ],
+        "correcta":  "Florida Marlins",
+        "explicacion":  "Los Florida Marlins vencieron a Cleveland en la Serie Mundial de 1997."
+    },
+    {
+        "id":  91,
+        "pregunta":  "¿Qué jugador fue conocido como \u0027The Splendid Splinter\u0027?",
+        "opciones":  [
+                         "Ted Williams",
+                         "Stan Musial",
+                         "Ty Cobb",
+                         "Honus Wagner"
+                     ],
+        "correcta":  "Ted Williams",
+        "explicacion":  "Ted Williams fue apodado The Splendid Splinter por su extraordinaria técnica de bateo."
+    },
+    {
+        "id":  92,
+        "pregunta":  "¿Qué equipo juega en LoanDepot Park?",
+        "opciones":  [
+                         "Miami Marlins",
+                         "Tampa Bay Rays",
+                         "Atlanta Braves",
+                         "Washington Nationals"
+                     ],
+        "correcta":  "Miami Marlins",
+        "explicacion":  "LoanDepot Park es el estadio de los Miami Marlins."
+    },
+    {
+        "id":  93,
+        "pregunta":  "¿Qué es un walk-off?",
+        "opciones":  [
+                         "Una jugada que termina el juego con la ventaja local",
+                         "Un cambio de lanzador",
+                         "Un corredor eliminado en primera",
+                         "Un home run de práctica"
+                     ],
+        "correcta":  "Una jugada que termina el juego con la ventaja local",
+        "explicacion":  "Un walk-off termina el partido inmediatamente cuando el equipo local toma la ventaja en la última entrada."
+    },
+    {
+        "id":  94,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 1995?",
+        "opciones":  [
+                         "Atlanta Braves",
+                         "Cleveland Indians",
+                         "New York Yankees",
+                         "Toronto Blue Jays"
+                     ],
+        "correcta":  "Atlanta Braves",
+        "explicacion":  "Atlanta derrotó a Cleveland para ganar la Serie Mundial de 1995."
+    },
+    {
+        "id":  95,
+        "pregunta":  "¿Qué jugador es conocido como \u0027The Flying Dutchman\u0027?",
+        "opciones":  [
+                         "Honus Wagner",
+                         "Ozzie Smith",
+                         "Joe Morgan",
+                         "Rogers Hornsby"
+                     ],
+        "correcta":  "Honus Wagner",
+        "explicacion":  "Honus Wagner fue apodado The Flying Dutchman por su origen y su velocidad en el campo."
+    },
+    {
+        "id":  96,
+        "pregunta":  "¿Qué equipo juega en Angel Stadium?",
+        "opciones":  [
+                         "Los Angeles Angels",
+                         "Los Angeles Dodgers",
+                         "San Diego Padres",
+                         "Oakland Athletics"
+                     ],
+        "correcta":  "Los Angeles Angels",
+        "explicacion":  "Angel Stadium es la casa de Los Angeles Angels."
+    },
+    {
+        "id":  97,
+        "pregunta":  "¿Qué es un grand slam?",
+        "opciones":  [
+                         "Un home run con las bases llenas",
+                         "Tres hits en una entrada",
+                         "Cuatro ponches seguidos",
+                         "Una victoria en extra innings"
+                     ],
+        "correcta":  "Un home run con las bases llenas",
+        "explicacion":  "Un grand slam es un home run con corredores en las tres bases y produce cuatro carreras."
+    },
+    {
+        "id":  98,
+        "pregunta":  "¿Qué equipo ganó la Serie Mundial de 1993?",
+        "opciones":  [
+                         "Toronto Blue Jays",
+                         "Philadelphia Phillies",
+                         "Atlanta Braves",
+                         "Chicago White Sox"
+                     ],
+        "correcta":  "Toronto Blue Jays",
+        "explicacion":  "Toronto derrotó a Philadelphia para ganar la Serie Mundial de 1993."
+    },
+    {
+        "id":  99,
+        "pregunta":  "¿Qué jugador es conocido como \u0027The Georgia Peach\u0027?",
+        "opciones":  [
+                         "Ty Cobb",
+                         "Hank Aaron",
+                         "Chipper Jones",
+                         "John Smoltz"
+                     ],
+        "correcta":  "Ty Cobb",
+        "explicacion":  "Ty Cobb fue apodado The Georgia Peach porque nació en Georgia y fue una estrella de los Tigers."
+    },
+    {
+        "id":  100,
+        "pregunta":  "¿Qué equipo juega en Yankee Stadium?",
+        "opciones":  [
+                         "New York Yankees",
+                         "New York Mets",
+                         "Boston Red Sox",
+                         "Philadelphia Phillies"
+                     ],
+        "correcta":  "New York Yankees",
+        "explicacion":  "Yankee Stadium es el estadio de los New York Yankees, uno de los clubes más laureados de MLB."
+    }
+]
