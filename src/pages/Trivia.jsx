@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CheckCircle2, Clock3, RotateCcw, Trophy, XCircle } from 'lucide-react';
 import preguntas from '../data/preguntas.json';
+import { getCurrentUser, updateUserProfile } from '../services/authService';
 
 const DIFFICULTIES = {
   easy: { label: 'Fácil', questions: 5, points: 1, time: 20, color: 'emerald' },
@@ -13,6 +14,8 @@ function shuffle(items) {
 }
 
 export default function Trivia() {
+  // Añadimos el estado del usuario
+  const [user, setUser] = useState(null);
   const [difficulty, setDifficulty] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,6 +23,10 @@ export default function Trivia() {
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
   const [finished, setFinished] = useState(false);
+
+  useEffect(() => {
+    setUser(getCurrentUser());
+  }, []);
 
   const settings = difficulty ? DIFFICULTIES[difficulty] : null;
   const currentQuestion = questions[currentIndex];
@@ -73,6 +80,10 @@ export default function Trivia() {
 
   const goToNextQuestion = () => {
     if (currentIndex === questions.length - 1) {
+      if (user) {
+        const updatedUser = updateUserProfile({ points: (user.points || 0) + score });
+        setUser(updatedUser);
+      }
       setFinished(true);
       return;
     }
@@ -144,6 +155,10 @@ export default function Trivia() {
             <strong className="mt-1 block text-6xl font-black">{score}</strong>
             <span className="text-xs text-blue-200">de {settings.questions * settings.points} posibles</span>
           </div>
+          {/* Mostramos una alerta si el usuario jugó sin sesión iniciada */}
+          {!user && (
+            <p className="text-xs text-rose-500 font-bold mb-4">Inicia sesión en tu perfil para guardar estos puntos.</p>
+          )}
           <button
             type="button"
             onClick={() => startTrivia(difficulty)}
