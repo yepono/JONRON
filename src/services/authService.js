@@ -72,3 +72,26 @@ export const updateUserProfile = (updatedFields) => {
     localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updatedUser));
     return updatedUser;
 };
+
+
+export const buyShopItem = (item) => {
+    const currentUser = getCurrentUser();
+    if (!currentUser) throw new Error('Debes iniciar sesión para comprar.');
+
+    const currentPoints = currentUser.points || 0;
+    if (currentPoints < item.price) {
+        throw new Error('No tienes suficientes Puntos Jonrón.');
+    }
+
+    const inventory = currentUser.inventory || [];
+    if (inventory.some((i) => i.id === item.id)) {
+        throw new Error('Ya posees este artículo en tu colección.');
+    }
+
+    const updatedUser = updateUserProfile({
+        points: currentPoints - item.price,
+        inventory: [...inventory, { ...item, acquiredAt: new Date().toISOString() }],
+    });
+
+    return updatedUser;
+};

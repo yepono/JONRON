@@ -2,9 +2,16 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Swords, ShieldAlert, Trophy, ArrowRight, Zap, ChevronDown, BarChart2, Coins, Dices } from 'lucide-react';
 import { getCurrentUser, updateUserProfile } from '../services/authService';
+import teamCardImages from '../data/juegoEquipos.json';
 
-// --- BASE DE DATOS EXCLUSIVA DE LA LIGA AMERICANA (15 EQUIPOS) ---
-const AL_TEAMS = [
+const teamImageAssets = import.meta.glob('../assets/juego/**/*.{png,jpg,jpeg,webp}', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+});
+
+// --- FRANQUICIAS DISPONIBLES ---
+const GAME_TEAMS = [
   { id: 'al1', name: 'New York Yankees', logoId: 147, color: 'from-slate-700 to-slate-900', basePower: 92 },
   { id: 'al2', name: 'Boston Red Sox', logoId: 111, color: 'from-red-700 to-red-900', basePower: 88 },
   { id: 'al3', name: 'Toronto Blue Jays', logoId: 141, color: 'from-blue-600 to-blue-800', basePower: 86 },
@@ -14,6 +21,7 @@ const AL_TEAMS = [
   { id: 'al7', name: 'Chicago White Sox', logoId: 145, color: 'from-zinc-700 to-black', basePower: 80 },
   { id: 'al8', name: 'Detroit Tigers', logoId: 116, color: 'from-orange-600 to-slate-800', basePower: 83 },
   { id: 'al9', name: 'Kansas City Royals', logoId: 118, color: 'from-blue-500 to-blue-800', basePower: 86 },
+  { id: 'nl1', name: 'Colorado Rockies', logoId: 115, color: 'from-purple-800 to-slate-950', basePower: 78 },
   { id: 'al10', name: 'Minnesota Twins', logoId: 142, color: 'from-red-600 to-blue-900', basePower: 87 },
   { id: 'al11', name: 'Houston Astros', logoId: 117, color: 'from-orange-600 to-blue-900', basePower: 91 },
   { id: 'al12', name: 'Texas Rangers', logoId: 140, color: 'from-blue-600 to-red-800', basePower: 89 },
@@ -36,6 +44,11 @@ const generateRoster = (team, isUser = false) => {
       const variance = Math.floor(Math.random() * 8) - 3;
       const power = Math.min(99, Math.max(70, team.basePower + variance + managerBuff));
       const rarity = power >= 92 ? 'Diamante' : power >= 86 ? 'Oro' : 'Plata';
+      const imageFiles = teamCardImages[team.name]?.[r.role] ?? [];
+      const imageFile = imageFiles[Math.floor(Math.random() * imageFiles.length)];
+      const imagePath = imageFile
+        ? `../assets/juego/${team.name.toLowerCase()}/${imageFile}`
+        : null;
       
       roster.push({
         id: `${team.id}-${r.role}-${i}-${Date.now()}`,
@@ -45,9 +58,7 @@ const generateRoster = (team, isUser = false) => {
         power,
         rarity,
         color: team.color,
-        image: r.role === 'Bateador' 
-          ? 'https://images.unsplash.com/photo-1508344928928-7137b67de192?auto=format&fit=crop&w=300&q=80'
-          : 'https://images.unsplash.com/photo-1541534407335-5134db1b4ee3?auto=format&fit=crop&w=300&q=80',
+        image: imagePath ? teamImageAssets[imagePath] : null,
         stats: { 
           [r.stat1]: power > 90 ? (r.role === 'Bateador' ? '.310' : '2.50') : (r.role === 'Bateador' ? '.260' : '3.80'), 
           [r.stat2]: Math.floor(power * (r.role === 'Bateador' ? 0.35 : 1.8)) 
@@ -75,7 +86,7 @@ const BaseballCard = ({ card, onPlay, isPlayable = true }) => {
       onClick={() => isPlayable && onPlay && onPlay(card)}
     >
       <div className={`absolute inset-0 bg-gradient-to-t ${card.color} opacity-70 z-10`} />
-      <img src={card.image} alt={card.name} className="absolute inset-0 w-full h-full object-cover z-0 opacity-60 mix-blend-luminosity" />
+      {card.image && <img src={card.image} alt={card.name} className="absolute inset-0 w-full h-full object-cover z-0 opacity-60 mix-blend-luminosity" />}
       
       <div className="relative z-20 p-3 h-full flex flex-col justify-between">
         {/* Cabecera (Poder y Rareza) */}
@@ -263,16 +274,16 @@ export default function Juego() {
               <p className="text-xs text-slate-400 max-w-[280px] mx-auto">Juego táctico de 9 entradas. Tus cartas suman un dado de rendimiento según su rareza. ¡Gana el partido para llevarte 100 Puntos Jonrón!</p>
             </div>
             <button onClick={handleStartGame} className="bg-white text-slate-900 font-black text-base px-10 py-4 rounded-2xl shadow-xl flex items-center gap-2">
-              Buscar Rival AL <ArrowRight size={18} />
+              Buscar Rival <ArrowRight size={18} />
             </button>
           </motion.div>
         )}
 
         {gameState === 'opp_select' && (
           <motion.div key="opp_select" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} className="p-4 flex flex-col h-[80vh]">
-            <h2 className="text-center text-sm font-black text-rose-500 uppercase tracking-widest mt-2 mb-4">Selecciona una Franquicia Rival (AL)</h2>
+            <h2 className="text-center text-sm font-black text-rose-500 uppercase tracking-widest mt-2 mb-4">Selecciona una Franquicia Rival</h2>
             <div className="flex flex-col gap-3 overflow-y-auto pb-4 scrollbar-none">
-              {AL_TEAMS.map((team) => (
+              {GAME_TEAMS.map((team) => (
                 <motion.div whileTap={{ scale: 0.98 }} key={team.id} onClick={() => selectOpponent(team)} className={`bg-gradient-to-r ${team.color} border border-white/10 p-4 rounded-2xl flex items-center justify-between cursor-pointer shadow-lg`}>
                   <div className="flex items-center gap-4">
                     <img src={`https://www.mlbstatic.com/team-logos/${team.logoId}.svg`} alt="" className="w-10 h-10 bg-white rounded-full p-1" />
@@ -292,7 +303,7 @@ export default function Juego() {
           <motion.div key="team_select" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} className="p-4 flex flex-col h-[80vh]">
             <h2 className="text-center text-sm font-black text-emerald-400 uppercase tracking-widest mt-2 mb-4">¿Con qué equipo jugarás?</h2>
             <div className="flex flex-col gap-3 overflow-y-auto pb-4 scrollbar-none">
-              {AL_TEAMS.filter(t => t.id !== selectedOpponent.id).map((team) => (
+              {GAME_TEAMS.filter(t => t.id !== selectedOpponent.id).map((team) => (
                 <motion.div whileTap={{ scale: 0.98 }} key={team.id} onClick={() => selectUserTeam(team)} className={`bg-gradient-to-r ${team.color} border border-white/10 p-4 rounded-2xl flex items-center justify-between cursor-pointer shadow-lg`}>
                   <div className="flex items-center gap-4">
                     <img src={`https://www.mlbstatic.com/team-logos/${team.logoId}.svg`} alt="" className="w-10 h-10 bg-white rounded-full p-1" />
@@ -353,7 +364,7 @@ export default function Juego() {
                     >
                       <option value="Todos">Todos</option>
                       <option value="Bateador">Bateadores</option>
-                      <option value="Lanzador">Lanzadores</option>
+                      <option value="Lanzador">Pitchers</option>
                     </select>
                     <ChevronDown size={12} className="absolute right-1.5 top-1.5 pointer-events-none text-slate-400" />
                   </div>

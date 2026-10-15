@@ -4,9 +4,9 @@ import preguntas from '../data/preguntas.json';
 import { getCurrentUser, updateUserProfile } from '../services/authService';
 
 const DIFFICULTIES = {
-  easy: { label: 'Fácil', questions: 5, points: 1, time: 20, color: 'emerald' },
-  medium: { label: 'Medio', questions: 10, points: 2, time: 15, color: 'amber' },
-  hard: { label: 'Experto', questions: 20, points: 3, time: 12, color: 'rose' },
+  easy: { label: 'Fácil', questions: 5, points: 10, time: 20, color: 'emerald' },
+  medium: { label: 'Medio', questions: 10, points: 20, time: 15, color: 'amber' },
+  hard: { label: 'Experto', questions: 20, points: 30, time: 12, color: 'rose' },
 };
 
 function shuffle(items) {

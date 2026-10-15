@@ -1,0 +1,35 @@
+{
+  "Colorado Rockies": {
+    "Bateador": [
+      "batter1.png",
+      "batter2.png",
+      "batter3.png",
+      "batter4.png"
+    ],
+    "Lanzador": [
+      "pitcher1.png",
+      "pitcher2.png",
+      "pitcher3.png",
+      "pitcher4.png",
+      "pitcher5.png",
+      "pitcher6.png"
+    ]
+  },
+  "Kansas City Royals": {
+    "Bateador": [
+      "batter1.png",
+      "batter2.png",
+      "batter3.png",
+      "batter4.png",
+      "batter5.png"
+    ],
+    "Lanzador": [
+      "pitcher1.png",
+      "pither2.png",
+      "pitcher3.png",
+      "pitcher4.png",
+      "pitcher5.png",
+      "pitcher6.png"
+    ]
+  }
+}
