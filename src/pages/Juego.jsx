@@ -253,7 +253,7 @@ export default function Juego() {
   const filteredRoster = filterRole === 'Todos' ? userRoster : userRoster.filter(c => c.role === filterRole);
 
   return (
-    <div className="min-h-screen bg-[#080E1E] text-white pb-28 overflow-hidden relative">
+    <div className="min-h-full bg-[#080E1E] text-white pb-6 relative">
       <div className="bg-[#0047AB] px-4 py-3 shadow-lg flex justify-between items-center relative z-20">
         <div>
           <h1 className="text-lg font-black tracking-widest uppercase">Cards Battle</h1>
@@ -450,7 +450,7 @@ export default function Juego() {
         )}
 
         {gameState === 'match_result' && (
-          <motion.div key="match_result" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center justify-center h-full absolute inset-0 p-6 pt-16 bg-[#080E1E] overflow-y-auto scrollbar-none">
+          <motion.div key="match_result" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} className="absolute inset-0 flex h-full flex-col items-center justify-center overflow-y-auto bg-[#080E1E] px-6 pb-8 pt-16 scrollbar-none">
             <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest block mb-1">Marcador Final - 9 Innings</span>
             <h2 className={`text-4xl font-black uppercase tracking-wider mb-6 ${userRuns > oppRuns ? 'text-emerald-400' : userRuns === oppRuns ? 'text-amber-400' : 'text-rose-500'}`}>
               {userRuns > oppRuns ? '¡VICTORIA!' : userRuns === oppRuns ? 'EMPATE' : 'DERROTA'}
@@ -503,7 +503,7 @@ export default function Juego() {
               </div>
             )}
 
-            <button onClick={resetGame} className="bg-[#0047AB] text-white font-black px-10 py-4 rounded-2xl shadow-xl w-full max-w-[320px] mb-10">
+            <button onClick={resetGame} className="mb-6 w-full max-w-[320px] rounded-2xl bg-[#0047AB] px-6 py-4 font-black text-white shadow-xl">
               Ir a la Casa Club (Menú)
             </button>
           </motion.div>

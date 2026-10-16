@@ -71,13 +71,51 @@ export default function Torneo() {
   const activeTeamObj = divisions
     .flatMap((d) => d.teams)
     .find((t) => t.id === selectedTeamId || t.name === selectedTeam);
+  const normalizedQuery = searchQuery.trim().toLocaleLowerCase('es');
+  const searchResults = divisions.flatMap((division) =>
+    division.teams
+      .filter((team) => `${team.name} ${team.short} ${division.divisionName}`.toLocaleLowerCase('es').includes(normalizedQuery))
+      .map((team) => ({ ...team, divisionName: division.divisionName })),
+  );
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-28">
-      <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+    <div className="min-h-full bg-slate-50 pb-6">
+      <Header
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        searchPlaceholder="Buscar equipo o división..."
+      />
 
       <div className="p-4 space-y-4">
-        {loading ? (
+        {normalizedQuery ? (
+          <section className="space-y-3">
+            <h2 className="text-xs font-black uppercase tracking-wider text-slate-600">
+              Equipos que coinciden ({searchResults.length})
+            </h2>
+            {loading ? (
+              <p className="py-8 text-center text-xs text-slate-400">Cargando equipos...</p>
+            ) : searchResults.length ? (
+              <div className="space-y-2">
+                {searchResults.map((team) => (
+                  <button
+                    key={team.id}
+                    type="button"
+                    onClick={() => handleTeamSelect(team.id, team.name)}
+                    className="flex w-full items-center gap-3 rounded-xl border border-slate-100 bg-white p-3 text-left shadow-sm"
+                  >
+                    <img src={`https://www.mlbstatic.com/team-logos/${team.logoId}.svg`} alt="" className="h-9 w-9 shrink-0 object-contain" />
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-xs font-black text-slate-800">{team.name}</span>
+                      <span className="block text-[10px] text-slate-500">{team.divisionName} · {team.wins}-{team.losses}</span>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <p className="rounded-xl bg-white p-5 text-center text-xs text-slate-500">No se encontraron equipos con “{searchQuery}”.</p>
+            )}
+          </section>
+        ) : loading ? (
           <div className="py-16 text-center text-xs text-slate-400">
             Conectando con el cuadro oficial de postemporada...
           </div>

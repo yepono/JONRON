@@ -1,5 +1,5 @@
-import { useState, useEffect, Suspense, useRef } from 'react';
-import { Coins, X, CheckCircle2, ShoppingBag, AlertCircle } from 'lucide-react';
+import { useState, Suspense, useRef } from 'react';
+import { Coins, X, CheckCircle2, ShoppingBag, AlertCircle, Search } from 'lucide-react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, PresentationControls, useTexture } from '@react-three/drei';
 import { getCurrentUser, buyShopItem } from '../services/authService';
@@ -47,7 +47,7 @@ const SpinningCoin = ({ image, color }) => {
 // --- VISOR 3D (CANVAS) ---
 const Item3DViewer = ({ image, color }) => {
   return (
-    <div className="w-full h-64 bg-gradient-to-b from-slate-900 to-slate-950 cursor-grab active:cursor-grabbing relative">
+    <div className="relative h-[clamp(10rem,28dvh,16rem)] w-full shrink-0 cursor-grab bg-gradient-to-b from-slate-900 to-slate-950 active:cursor-grabbing">
       <div className="absolute top-3 left-0 w-full text-center pointer-events-none z-10">
         <span className="bg-black/40 border border-white/10 text-white text-[10px] font-bold px-3 py-1 rounded-full backdrop-blur-md">
           Desliza para rotar el parche en 3D
@@ -95,15 +95,16 @@ const SHOP_ITEMS = [
 ];
 
 export default function Tienda() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => getCurrentUser());
   const [selectedItem, setSelectedItem] = useState(null);
   const [feedback, setFeedback] = useState(null);
-
-  useEffect(() => {
-    setUser(getCurrentUser());
-  }, []);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const inventoryIds = user?.inventory?.map(i => i.id) || [];
+  const normalizedQuery = searchQuery.trim().toLocaleLowerCase('es');
+  const filteredItems = SHOP_ITEMS.filter((item) =>
+    `${item.name} ${item.type} ${item.desc}`.toLocaleLowerCase('es').includes(normalizedQuery),
+  );
 
   const handleBuy = () => {
     try {
@@ -119,7 +120,7 @@ export default function Tienda() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-28">
+    <div className="min-h-full bg-slate-50 pb-6">
       {/* Cabecera */}
       <div className="bg-[#0047AB] px-5 py-6 rounded-b-3xl shadow-lg relative overflow-hidden">
         <div className="relative z-10 flex justify-between items-center">
@@ -132,6 +133,17 @@ export default function Tienda() {
             <span>{user ? user.points?.toLocaleString() : '---'} pts</span>
           </div>
         </div>
+        <label className="relative mt-4 block">
+          <span className="sr-only">Buscar productos</span>
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder="Buscar producto o equipo..."
+            className="w-full rounded-xl bg-white py-2.5 pl-4 pr-10 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          />
+          <Search size={17} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-blue-700" />
+        </label>
       </div>
 
       {/* Alertas */}
@@ -143,8 +155,9 @@ export default function Tienda() {
       )}
 
       {/* Cuadrícula de Productos */}
-      <div className="p-4 grid grid-cols-2 gap-4">
-        {SHOP_ITEMS.map((item) => {
+      {filteredItems.length ? (
+      <div className="grid grid-cols-2 gap-4 p-4">
+        {filteredItems.map((item) => {
           const isOwned = inventoryIds.includes(item.id);
           return (
             <div
@@ -171,19 +184,34 @@ export default function Tienda() {
           );
         })}
       </div>
+      ) : (
+        <p className="mx-4 mt-4 rounded-xl bg-white p-5 text-center text-xs text-slate-500">
+          No hay productos que coincidan con “{searchQuery}”.
+        </p>
+      )}
 
       {/* Modal 3D de Inspección y Compra */}
       {selectedItem && (
-        <div className="absolute inset-0 z-50 bg-slate-900/90 backdrop-blur-sm flex flex-col justify-end animate-in fade-in duration-200 rounded-3xl overflow-hidden mb-8">
-          <div className="absolute inset-0" onClick={() => setSelectedItem(null)} />
+        <div className="fixed inset-0 z-[100] flex flex-col justify-end overflow-hidden bg-slate-900/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-sm animate-in fade-in duration-200">
+          <button
+            type="button"
+            aria-label="Cerrar detalles del producto"
+            onClick={() => setSelectedItem(null)}
+            className="absolute inset-0 h-full w-full cursor-default"
+          />
 
-          <div className="bg-white rounded-t-3xl relative z-10 flex flex-col max-h-[85vh] shadow-[0_-10px_40px_rgba(0,0,0,0.3)]">
-            <div className="flex justify-between items-center p-5 border-b border-slate-100">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="shop-item-title"
+            className="relative z-10 mx-auto flex max-h-[calc(100dvh-env(safe-area-inset-top)-env(safe-area-inset-bottom)-1rem)] w-full max-w-md flex-col overflow-hidden rounded-t-3xl bg-white shadow-[0_-10px_40px_rgba(0,0,0,0.3)]"
+          >
+            <div className="flex shrink-0 items-center justify-between border-b border-slate-100 p-4">
               <div>
                 <span className="text-[10px] font-bold text-amber-500 uppercase tracking-widest">{selectedItem.type}</span>
-                <h2 className="text-xl font-black text-slate-900">{selectedItem.name}</h2>
+                <h2 id="shop-item-title" className="text-lg font-black text-slate-900">{selectedItem.name}</h2>
               </div>
-              <button onClick={() => setSelectedItem(null)} className="p-2 bg-slate-100 rounded-full text-slate-500">
+              <button type="button" aria-label="Cerrar" onClick={() => setSelectedItem(null)} className="rounded-full bg-slate-100 p-2 text-slate-500">
                 <X size={20} />
               </button>
             </div>
@@ -191,19 +219,22 @@ export default function Tienda() {
             {/* VISUALIZADOR 3D INTERACTIVO */}
             <Item3DViewer image={selectedItem.image} color={selectedItem.color} />
 
-            <div className="p-6 bg-white overflow-y-auto">
-              <p className="text-sm text-slate-600 leading-relaxed mb-6 text-center px-2">
+            <div className="min-h-0 flex-1 overflow-y-auto px-4 py-3">
+              <p className="text-center text-sm leading-relaxed text-slate-600">
                 {selectedItem.desc}
               </p>
+            </div>
 
+            <div className="shrink-0 border-t border-slate-100 bg-white p-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
               {inventoryIds.includes(selectedItem.id) ? (
-                <button disabled className="w-full bg-emerald-500 text-white font-black py-4 rounded-2xl flex items-center justify-center gap-2 opacity-80 cursor-not-allowed">
+                <button type="button" disabled className="flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl bg-emerald-500 py-3.5 font-black text-white opacity-80">
                   <CheckCircle2 size={18} /> Artículo en tu Perfil
                 </button>
               ) : (
                 <button
+                  type="button"
                   onClick={handleBuy}
-                  className="w-full bg-[#0047AB] hover:bg-blue-800 text-white font-black py-4 rounded-2xl shadow-xl flex items-center justify-center gap-2 transition-transform active:scale-95"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0047AB] py-3.5 font-black text-white shadow-xl transition-transform hover:bg-blue-800 active:scale-95"
                 >
                   <ShoppingBag size={18} /> Comprar por {selectedItem.price} Puntos
                 </button>

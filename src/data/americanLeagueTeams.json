@@ -1,0 +1,17 @@
+[
+  { "id": "yankees", "name": "New York Yankees", "abbreviation": "NYY" },
+  { "id": "redsox", "name": "Boston Red Sox", "abbreviation": "BOS" },
+  { "id": "toronto", "name": "Toronto Blue Jays", "abbreviation": "TOR" },
+  { "id": "baltimore", "name": "Baltimore Orioles", "abbreviation": "BAL" },
+  { "id": "rays", "name": "Tampa Bay Rays", "abbreviation": "TB" },
+  { "id": "guardians", "name": "Cleveland Guardians", "abbreviation": "CLE" },
+  { "id": "white_sox", "name": "Chicago White Sox", "abbreviation": "CWS" },
+  { "id": "detroit", "name": "Detroit Tigers", "abbreviation": "DET" },
+  { "id": "royals", "name": "Kansas City Royals", "abbreviation": "KC" },
+  { "id": "twins", "name": "Minnesota Twins", "abbreviation": "MIN" },
+  { "id": "astros", "name": "Houston Astros", "abbreviation": "HOU" },
+  { "id": "texas", "name": "Texas Rangers", "abbreviation": "TEX" },
+  { "id": "mariners", "name": "Seattle Mariners", "abbreviation": "SEA" },
+  { "id": "angels", "name": "Los Angeles Angels", "abbreviation": "LAA" },
+  { "id": "athletics", "name": "Oakland Athletics", "abbreviation": "ATH" }
+]

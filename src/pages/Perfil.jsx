@@ -1,15 +1,33 @@
-import { useState, useEffect } from 'react';
-import { User, Mail, Calendar, Shield, LogOut, Coins, CreditCard, ShoppingBag } from 'lucide-react';
+import { useState } from 'react';
+import { User, Mail, Calendar, LogOut, Coins, CreditCard, ShoppingBag, CheckCircle2, Circle, ChevronRight, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Login from './Login';
 import { getCurrentUser, logoutUser } from '../services/authService';
+import americanLeagueTeams from '../data/americanLeagueTeams.json';
+
+const CollectionCard = ({ card, scanned, compact = false }) => (
+  <div className={`relative flex flex-col justify-between overflow-hidden rounded-lg border p-2 ${
+    compact ? 'h-[76px] w-[calc((100%-1rem)/3)] shrink-0' : 'min-h-[88px]'
+  } ${
+    scanned
+      ? 'border-emerald-300 bg-gradient-to-br from-emerald-500 via-teal-500 to-blue-700 text-white shadow-md'
+      : 'border-slate-200 bg-slate-100 text-slate-400 grayscale'
+  }`}>
+    <div className="flex items-start justify-between gap-1">
+      <span className={`text-[9px] font-black uppercase ${scanned ? 'text-white/75' : 'text-slate-400'}`}>
+        {card.abbreviation}
+      </span>
+      {scanned ? <CheckCircle2 size={13} /> : <Circle size={13} />}
+    </div>
+    <span className={`text-[10px] font-black leading-tight ${compact ? 'line-clamp-2' : ''}`}>
+      {card.name}
+    </span>
+  </div>
+);
 
 export default function Perfil() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    setUser(getCurrentUser());
-  }, []);
+  const [user, setUser] = useState(() => getCurrentUser());
+  const [isCollectionOpen, setIsCollectionOpen] = useState(false);
 
   const handleLogout = () => {
     logoutUser();
@@ -17,13 +35,17 @@ export default function Perfil() {
   };
 
   if (!user) {
-    return <Login onLoginSuccess={(loggedUser) => setUser(loggedUser)} />;
+    return <Login onLoginSuccess={setUser} />;
   }
 
   const inventory = user.inventory || [];
+  const scannedCards = user.scannedCards || [];
+  const scannedCardIds = new Set(scannedCards.map((card) => card.id));
+  const scannedTeamCards = americanLeagueTeams.filter((card) => scannedCardIds.has(card.id));
+  const pendingTeamCards = americanLeagueTeams.filter((card) => !scannedCardIds.has(card.id));
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-28">
+    <div className="min-h-full bg-slate-50 pb-6">
       {/* Cabecera */}
       <div className="bg-[#0047AB] text-white pt-8 pb-10 px-6 rounded-b-3xl shadow-md text-center">
         <div className="w-20 h-20 bg-white/20 border-2 border-white/40 rounded-full mx-auto flex items-center justify-center mb-3 shadow-inner overflow-hidden">
@@ -85,27 +107,76 @@ export default function Perfil() {
           )}
         </div>
 
-        {/* SECCIÓN 3: Cartas Escaneadas Físicas */}
+        {/* SECCIÓN 3: Colección de cartas AL */}
         <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm space-y-3">
           <div className="flex justify-between items-center border-b border-slate-50 pb-2">
             <div className="flex items-center gap-1.5">
               <CreditCard size={14} className="text-blue-600" />
-              <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Cartas Físicas</h3>
+              <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Colección AL</h3>
             </div>
-            <span className="text-[10px] font-bold text-slate-400">{user.scannedCards?.length || 0} cartas</span>
+            <button
+              type="button"
+              onClick={() => setIsCollectionOpen(true)}
+              className="flex items-center gap-1 text-[10px] font-bold text-blue-700"
+              aria-label="Ver todas las cartas de la Liga Americana"
+            >
+              Ver todas <ChevronRight size={13} />
+            </button>
           </div>
 
-          <div className="grid grid-cols-3 gap-2">
-            {(user.scannedCards || []).map((card) => (
-              <div key={card.id} className="bg-slate-900 text-white p-2.5 rounded-xl border border-slate-800 text-center space-y-1 shadow-2xs relative overflow-hidden">
-                <div className="w-2 h-2 rounded-full bg-amber-400 mx-auto" />
-                <span className="text-[11px] font-black block truncate">{card.player}</span>
-                <span className="text-[9px] text-slate-400 block truncate">{card.team}</span>
-                <span className="text-[8px] bg-white/10 text-amber-300 font-mono font-bold px-1 rounded block">{card.rarity}</span>
-              </div>
-            ))}
+          <div className="flex items-center justify-between text-[10px]">
+            <span className="font-bold text-emerald-700">{scannedTeamCards.length} escaneadas</span>
+            <span className="text-slate-400">{pendingTeamCards.length} pendientes</span>
           </div>
+
+          {scannedTeamCards.length ? (
+            <div className="flex gap-2 overflow-x-auto overscroll-x-contain pb-1">
+              {scannedTeamCards.map((card) => (
+                <CollectionCard key={card.id} card={card} scanned compact />
+              ))}
+            </div>
+          ) : (
+            <p className="py-3 text-center text-[10px] text-slate-400">Aún no has escaneado cartas de la Liga Americana.</p>
+          )}
         </div>
+
+        {isCollectionOpen && (
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/70 p-4"
+            onClick={() => setIsCollectionOpen(false)}
+            onKeyDown={(event) => {
+              if (event.key === 'Escape') setIsCollectionOpen(false);
+            }}
+          >
+            <section
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="collection-title"
+              className="w-full max-w-md rounded-xl bg-white p-4 shadow-2xl"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="mb-4 flex items-center justify-between border-b border-slate-100 pb-3">
+                <div>
+                  <h3 id="collection-title" className="text-sm font-black uppercase text-slate-900">Colección Liga Americana</h3>
+                  <p className="mt-1 text-[10px] text-slate-500">{scannedTeamCards.length} de {americanLeagueTeams.length} cartas escaneadas</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsCollectionOpen(false)}
+                  className="flex h-8 w-8 items-center justify-center rounded-full text-slate-500 hover:bg-slate-100"
+                  aria-label="Cerrar colección"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+              <div className="grid max-h-[65vh] grid-cols-2 gap-2 overflow-y-auto pr-1">
+                {americanLeagueTeams.map((card) => (
+                  <CollectionCard key={card.id} card={card} scanned={scannedCardIds.has(card.id)} />
+                ))}
+              </div>
+            </section>
+          </div>
+        )}
 
         {/* Información y Logout */}
         <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm space-y-2 text-xs">
@@ -116,7 +187,7 @@ export default function Perfil() {
           </div>
           <div className="flex items-center justify-between py-1">
             <span className="text-slate-500 flex items-center gap-1.5"><Calendar size={13} className="text-blue-600" /> Miembro desde:</span>
-            <strong className="text-slate-800">{new Date(user.createdAt || Date.now()).toLocaleDateString('es-MX', { month: 'short', year: 'numeric' })}</strong>
+            <strong className="text-slate-800">{user.createdAt ? new Date(user.createdAt).toLocaleDateString('es-MX', { month: 'short', year: 'numeric' }) : '-'}</strong>
           </div>
         </div>
 

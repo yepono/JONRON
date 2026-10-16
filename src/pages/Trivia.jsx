@@ -94,7 +94,7 @@ export default function Trivia() {
 
   if (!difficulty) {
     return (
-      <div className="min-h-screen bg-slate-50 px-4 pb-24 font-sans">
+      <div className="min-h-full bg-slate-50 px-4 pb-6 font-sans">
         <header className="rounded-b-3xl bg-[#0047AB] px-5 pb-8 pt-8 text-center text-white shadow-md">
           <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-blue-200">JONRÓN</p>
           <h1 className="mt-1 text-3xl font-black">Trivia MLB</h1>
@@ -142,7 +142,7 @@ export default function Trivia() {
 
   if (finished) {
     return (
-      <div className="min-h-screen bg-slate-50 px-4 pb-24 font-sans">
+      <div className="min-h-full bg-slate-50 px-4 pb-6 font-sans">
         <section className="mx-auto flex min-h-[700px] max-w-sm flex-col items-center justify-center text-center">
           <div className="mb-5 flex h-24 w-24 items-center justify-center rounded-full bg-amber-100 text-5xl shadow-inner">
             <Trophy className="text-amber-500" size={50} />
@@ -179,7 +179,7 @@ export default function Trivia() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 px-4 pb-24 font-sans">
+    <div className="min-h-full bg-slate-50 px-4 pb-6 font-sans">
       <section className="mx-auto max-w-sm pt-6">
         <div className="mb-5 flex items-center justify-between">
           <div>

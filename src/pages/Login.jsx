@@ -85,7 +85,7 @@ export default function Login({ onLoginSuccess }) {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col justify-between pb-28">
+        <div className="min-h-full bg-slate-50 flex flex-col justify-between pb-6">
             {/* Cabecera */}
             <div className="bg-[#0047AB] text-white pt-6 pb-8 px-6 rounded-b-3xl shadow-md text-center">
                 <h1 className="text-3xl font-black tracking-wider uppercase">JONRÓN</h1>

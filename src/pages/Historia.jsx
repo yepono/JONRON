@@ -6,16 +6,17 @@ import { BASEBALL_HISTORY, AL_TEAMS_HISTORY } from '../data/historyData';
 
 export default function Historia() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState('general'); // 'general' | 'equipos'
+  const [activeTab, setActiveTab] = useState('general');
   const [selectedTeam, setSelectedTeam] = useState(null);
 
   // Filtramos equipos por búsqueda
+  const normalizedQuery = searchQuery.trim().toLocaleLowerCase('es');
   const filteredTeams = AL_TEAMS_HISTORY.filter(t =>
-    t.name.toLowerCase().includes(searchQuery.toLowerCase())
+    t.name.toLocaleLowerCase('es').includes(normalizedQuery)
   );
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-28">
+    <div className="min-h-full bg-slate-50 pb-6">
       <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
       <div className="p-4 space-y-5">
@@ -110,6 +111,11 @@ export default function Historia() {
                   <p className="font-bold mb-1">¡Enciclopedia en construcción!</p>
                   <p>Puedes agregar la historia de los demás equipos de la AL editando el archivo <code className="bg-slate-200 px-1 rounded">historyData.js</code>.</p>
                 </div>
+              )}
+              {normalizedQuery && filteredTeams.length === 0 && (
+                <p className="rounded-xl bg-white p-5 text-center text-xs text-slate-500">
+                  No se encontraron equipos con “{searchQuery}”.
+                </p>
               )}
             </div>
           </div>
