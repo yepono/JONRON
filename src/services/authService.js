@@ -1,7 +1,9 @@
 // src/services/authService.js
+import americanLeagueTeams from '../data/americanLeagueTeams.json';
 
 const USERS_STORAGE_KEY = 'jonron_users';
 const CURRENT_USER_KEY = 'jonron_current_user';
+const AMERICAN_LEAGUE_TEAM_IDS = new Set(americanLeagueTeams.map(({ id }) => id));
 
 export const registerUser = ({ username, email, password, avatar, favoriteTeam }) => {
     const users = JSON.parse(localStorage.getItem(USERS_STORAGE_KEY) || '[]');
@@ -19,11 +21,7 @@ export const registerUser = ({ username, email, password, avatar, favoriteTeam }
         avatar: avatar || null,
         favoriteTeam: favoriteTeam || 'New York Yankees',
         points: 1250, // Puntos simulados iniciales para la tienda
-        scannedCards: [
-            { id: 'c1', player: 'Aaron Judge', team: 'Yankees', rarity: 'Oro', number: '#99' },
-            { id: 'c2', player: 'Rafael Devers', team: 'Red Sox', rarity: 'Plata', number: '#11' },
-            { id: 'c3', player: 'Vladimir Guerrero Jr.', team: 'Blue Jays', rarity: 'Bronce', number: '#27' },
-        ],
+        scannedCards: [],
         createdAt: new Date().toISOString(),
     };
 
@@ -71,6 +69,20 @@ export const updateUserProfile = (updatedFields) => {
 
     localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updatedUser));
     return updatedUser;
+};
+
+export const markCardScanned = (card) => {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !AMERICAN_LEAGUE_TEAM_IDS.has(card.id)) return null;
+
+    const scannedCards = currentUser.scannedCards || [];
+    if (scannedCards.some((scannedCard) => scannedCard.id === card.id)) {
+        return currentUser;
+    }
+
+    return updateUserProfile({
+        scannedCards: [...scannedCards, { ...card, scannedAt: new Date().toISOString() }],
+    });
 };
 
 

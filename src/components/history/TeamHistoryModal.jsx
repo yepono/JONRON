@@ -6,7 +6,7 @@ export default function TeamHistoryModal({ team, onClose }) {
 
     return (
         // Cambiamos `fixed` por `absolute` para que no rompa el contenedor móvil
-        <div className="absolute inset-0 z-[10] bg-slate-50 flex flex-col animate-in slide-in-from-bottom duration-300 rounded-3xl overflow-hidden">
+        <div className="absolute inset-0 z-[100] flex flex-col overflow-hidden bg-slate-50 animate-in slide-in-from-bottom duration-300">
 
             {/* Navbar Superior Fijo dentro del contenedor */}
             <div className="bg-[#0047AB] text-white px-4 py-3 flex items-center justify-between sticky top-0 z-10 shadow-md">
@@ -26,7 +26,7 @@ export default function TeamHistoryModal({ team, onClose }) {
             </div>
 
             {/* Contenido Desplazable */}
-            <div className="flex-1 overflow-y-auto pb-10 bg-slate-50 scrollbar-none">
+            <div className="min-h-0 flex-1 overflow-y-auto bg-slate-50 pb-8 scrollbar-none">
 
                 {/* Imagen de Portada */}
                 <div className="relative h-48 w-full">

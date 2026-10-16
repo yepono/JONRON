@@ -24,8 +24,17 @@ export default function Home() {
     fetchPosts();
   }, []);
 
+  const normalizedQuery = searchQuery.trim().toLocaleLowerCase('es');
+  const filteredPosts = posts.filter((post) => {
+    const searchableText = [post.author?.name, post.author?.tagline, post.content]
+      .filter(Boolean)
+      .join(' ')
+      .toLocaleLowerCase('es');
+    return searchableText.includes(normalizedQuery);
+  });
+
   return (
-    <div className="min-h-screen bg-slate-50 pb-6">
+    <div className="min-h-full bg-slate-50 pb-6">
       <Header
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -38,8 +47,12 @@ export default function Home() {
 
         {loading ? (
           <div className="text-center py-6 text-xs text-slate-400">Cargando noticias...</div>
+        ) : filteredPosts.length === 0 ? (
+          <div className="rounded-xl bg-white p-5 text-center text-xs text-slate-500">
+            No hay publicaciones que coincidan con “{searchQuery}”.
+          </div>
         ) : (
-          posts.map((post) => <PostCard key={post.id} post={post} />)
+          filteredPosts.map((post) => <PostCard key={post.id} post={post} />)
         )}
       </section>
     </div>

@@ -19,7 +19,6 @@ export default function Calendario() {
     const now = new Date();
     const formatDate = (d) => d.toISOString().split('T')[0];
 
-    const start = new Date(now);
     const end = new Date(now);
 
     if (mode === 'dia') {
@@ -46,6 +45,27 @@ export default function Calendario() {
     fetchGames();
   }, [viewMode]);
 
+  const normalizedQuery = searchQuery.trim().toLocaleLowerCase('es');
+  const visibleDates = datesData
+    .map((dateObj) => ({
+      ...dateObj,
+      games: (dateObj.games || []).filter((game) => {
+        const searchableText = [
+          dateObj.date,
+          game.venue?.name,
+          game.teams?.away?.team?.name,
+          game.teams?.away?.team?.teamName,
+          game.teams?.home?.team?.name,
+          game.teams?.home?.team?.teamName,
+          game.status?.abstractGameState,
+          game.status?.detailedState,
+        ].filter(Boolean).join(' ').toLocaleLowerCase('es');
+        return searchableText.includes(normalizedQuery);
+      }),
+    }))
+    .filter((dateObj) => dateObj.games.length > 0);
+  const selectedVisibleDay = Math.min(selectedWeekDay, Math.max(visibleDates.length - 1, 0));
+
   const formatGameTime = (utcDateString) => {
     if (!utcDateString) return 'TBD';
     return new Intl.DateTimeFormat('es-MX', {
@@ -56,8 +76,12 @@ export default function Calendario() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-28">
-      <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+    <div className="min-h-full bg-slate-50 pb-6">
+      <Header
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        searchPlaceholder="Buscar equipo, estadio o estado..."
+      />
 
       <div className="p-4 space-y-4">
         {/* Controles Superiores */}
@@ -85,13 +109,13 @@ export default function Calendario() {
         </div>
 
         {/* ----------------- VISTA SEMANAL: Selector de días ----------------- */}
-        {viewMode === 'semana' && datesData.length > 0 && (
+        {viewMode === 'semana' && visibleDates.length > 0 && (
           <div className="flex gap-2 overflow-x-auto pb-1 pt-1 scrollbar-none">
-            {datesData.map((d, index) => {
+            {visibleDates.map((d, index) => {
               const dayDate = new Date(d.date + 'T00:00:00');
               const dayName = new Intl.DateTimeFormat('es-MX', { weekday: 'short' }).format(dayDate);
               const dayNum = dayDate.getDate();
-              const isSelected = selectedWeekDay === index;
+              const isSelected = selectedVisibleDay === index;
 
               return (
                 <button
@@ -116,14 +140,14 @@ export default function Calendario() {
           <div className="py-12 text-center text-xs text-slate-400">
             Cargando partidos oficiales...
           </div>
-        ) : datesData.length === 0 ? (
+        ) : visibleDates.length === 0 ? (
           <div className="bg-white rounded-2xl p-6 text-center text-xs text-slate-500 border border-slate-100">
-            No hay partidos registrados en este rango.
+            {normalizedQuery ? `No hay partidos que coincidan con “${searchQuery}”.` : 'No hay partidos registrados en este rango.'}
           </div>
         ) : viewMode === 'mes' ? (
           /* ----------------- VISTA MENSUAL COMPACTA ----------------- */
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-            {datesData.flatMap((d) => d.games).map((game) => (
+            {visibleDates.flatMap((d) => d.games).map((game) => (
               <div
                 key={game.gamePk}
                 onClick={() => setSelectedGame(game)}
@@ -155,7 +179,7 @@ export default function Calendario() {
         ) : (
           /* ----------------- VISTA DIARIA O SEMANA (DÍA SELECCIONADO) ----------------- */
           <div className="space-y-3">
-            {(viewMode === 'semana' ? [datesData[selectedWeekDay]].filter(Boolean) : datesData).map((dateObj) => (
+            {(viewMode === 'semana' ? [visibleDates[selectedVisibleDay]].filter(Boolean) : visibleDates).map((dateObj) => (
               <div key={dateObj.date} className="space-y-2.5">
                 <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 px-1">
                   <CalIcon size={13} />

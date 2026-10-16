@@ -1,5 +1,6 @@
 // src/App.jsx (o App_2.jsx)
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import BottomNav from './components/layout/BottomNav';
 import Home from './pages/Home';
 import Videos from './pages/Videos';
@@ -16,9 +17,23 @@ import Torneo from './pages/Torneo';
 export default function App() {
   return (
     <HashRouter>
-      <div className="min-h-screen bg-slate-900 text-slate-900 flex justify-center items-center md:py-6">
-        <div className="w-full max-w-md bg-white min-h-screen md:min-h-[844px] md:h-[900px] md:rounded-3xl relative shadow-2xl flex flex-col overflow-hidden">
-          <main className="flex-1 overflow-y-auto">
+      <AppShell />
+    </HashRouter>
+  );
+}
+
+function AppShell() {
+  const mainRef = useRef(null);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    mainRef.current?.scrollTo(0, 0);
+  }, [pathname]);
+
+  return (
+    <div className="flex h-[100dvh] w-full justify-center overflow-hidden bg-slate-900 text-slate-900">
+      <div className="relative flex h-full min-h-0 w-full max-w-md flex-col overflow-hidden bg-white shadow-2xl">
+          <main ref={mainRef} className="relative min-h-0 flex-1 overflow-y-auto overscroll-y-contain">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/videos" element={<Videos />} />
@@ -34,8 +49,7 @@ export default function App() {
             </Routes>
           </main>
           <BottomNav />
-        </div>
       </div>
-    </HashRouter>
+    </div>
   );
 }

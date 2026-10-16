@@ -1,4 +1,5 @@
 ﻿import { useEffect, useRef, useState } from 'react';
+import { Maximize2, Minimize2 } from 'lucide-react';
 import camera from '../assets/img/camera.png';
 import estadio from '../assets/img/estadio.jpg';
 import campo from '../assets/img/campo.webp';
@@ -6,7 +7,9 @@ import lockers from '../assets/img/lockers.jpg';
 import butacas from '../assets/img/butacas.webp';
 import Header from '../components/layout/Header';
 import modelData from '../data/models.json';
+import americanLeagueTeams from '../data/americanLeagueTeams.json';
 import targetFile from '../assets/models/targets.mind?url';
+import { markCardScanned } from '../services/authService';
 import 'aframe';
 import 'mind-ar-custom-nocanvas/dist/mindar-image-aframe.prod.js';
 
@@ -28,6 +31,7 @@ const targetEntries = modelData
 const modelAssets = targetEntries.filter(({ modelUrl }, index, entries) =>
   modelUrl && entries.findIndex((entry) => entry.modelUrl === modelUrl) === index,
 );
+const americanLeagueTeamIds = new Set(americanLeagueTeams.map(({ id }) => id));
 
 const mindArOptions = (targetUrl) =>
   `imageTargetSrc: ${targetUrl}; autoStart: true; uiLoading: no; uiScanning: no; uiError: no; maxTrack: 1`;
@@ -41,11 +45,13 @@ const backgroundOptions = [
 ];
 
 export default function Escaneo() {
+  const scanRootRef = useRef(null);
   const videoRef = useRef(null);
   const sceneRef = useRef(null);
   const targetRefs = useRef([]);
   const modelRefs = useRef([]);
   const [cameraError, setCameraError] = useState('');
+  const [scanMessage, setScanMessage] = useState('');
   const [scanned, setScanned] = useState(false);
   const [detectedTargetIndex, setDetectedTargetIndex] = useState(null);
   const [effect, setEffect] = useState('');
@@ -53,8 +59,43 @@ export default function Escaneo() {
   const [animationStopped, setAnimationStopped] = useState(false);
   const [isFlashing, setIsFlashing] = useState(false);
   const [scanKey, setScanKey] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const selectedBackground = backgroundOptions.find((option) => option.value === background);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(document.fullscreenElement === scanRootRef.current);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = async () => {
+    if (isFullscreen && !document.fullscreenElement) {
+      setIsFullscreen(false);
+      return;
+    }
+
+    if (document.fullscreenElement) {
+      await document.exitFullscreen?.();
+      return;
+    }
+
+    const scanRoot = scanRootRef.current;
+    const requestFullscreen = scanRoot?.requestFullscreen || scanRoot?.webkitRequestFullscreen;
+    if (!requestFullscreen) {
+      setIsFullscreen((fullscreen) => !fullscreen);
+      return;
+    }
+
+    try {
+      await requestFullscreen.call(scanRoot);
+    } catch {
+      setIsFullscreen(true);
+    }
+  };
 
   useEffect(() => {
     let stream;
@@ -79,6 +120,15 @@ export default function Escaneo() {
       const handleTargetFound = () => {
         setDetectedTargetIndex(index);
         setScanned(true);
+        const card = modelData.find((entry) => entry.targetIndex === index);
+        if (card) {
+          if (!americanLeagueTeamIds.has(card.team)) {
+            setScanMessage('Esta carta no pertenece a la Liga Americana y no se agregó a tu colección.');
+          } else {
+            const savedCard = markCardScanned({ id: card.team, team: card.team });
+            setScanMessage(savedCard ? '' : 'Inicia sesión para guardar esta carta en tu perfil.');
+          }
+        }
       };
       target.addEventListener('targetFound', handleTargetFound);
       return () => target.removeEventListener('targetFound', handleTargetFound);
@@ -168,6 +218,7 @@ export default function Escaneo() {
   const scanAnotherCard = () => {
     setScanned(false);
     setDetectedTargetIndex(null);
+    setScanMessage('');
     setEffect('');
     setBackground('');
     setAnimationStopped(false);
@@ -243,7 +294,12 @@ const capturePhoto = async () => {
           : ['🔥'];
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+    <div
+      ref={scanRootRef}
+      className={isFullscreen
+        ? 'fixed inset-0 z-[100] h-[100dvh] w-screen overflow-hidden bg-black'
+        : 'absolute inset-0 z-0 overflow-hidden bg-black'}
+    >
       <video
         ref={videoRef}
         autoPlay
@@ -341,7 +397,21 @@ const capturePhoto = async () => {
             {cameraError}
           </p>
         )}
+        {scanMessage && (
+          <p className="mx-4 mt-2 rounded-lg bg-black/70 p-3 text-center text-sm text-white">
+            {scanMessage}
+          </p>
+        )}
       </div>
+
+      <button
+        type="button"
+        onClick={toggleFullscreen}
+        aria-label={isFullscreen ? 'Salir de pantalla completa' : 'Poner escaneo AR en pantalla completa'}
+        className="fixed right-3 top-[calc(env(safe-area-inset-top)+4.5rem)] z-[70] flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-slate-950/80 text-white shadow-lg backdrop-blur-sm"
+      >
+        {isFullscreen ? <Minimize2 size={19} /> : <Maximize2 size={19} />}
+      </button>
 
       {scanned && (
         <>
@@ -397,7 +467,7 @@ const capturePhoto = async () => {
         type="button"
         aria-label="Escanear"
         onClick={capturePhoto}
-        className="fixed bottom-18 left-1/2 z-50 flex h-20 w-20 -translate-x-1/2 items-center justify-center rounded-full bg-[#0047AB] text-2xl text-white shadow-lg transition-transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+        className="fixed bottom-[calc(env(safe-area-inset-bottom)+5rem)] left-1/2 z-50 flex h-20 w-20 -translate-x-1/2 items-center justify-center rounded-full bg-[#0047AB] text-2xl text-white shadow-lg transition-transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
       >
         <img src={camera} alt="" className="h-14 w-14" />
       </button>

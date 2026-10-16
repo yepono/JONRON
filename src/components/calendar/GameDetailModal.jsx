@@ -21,8 +21,8 @@ export default function GameDetailModal({ game, onClose }) {
     };
 
     return (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end sm:items-center justify-center">
-            <div className="bg-white w-full max-w-md h-[88vh] sm:h-auto sm:max-h-[85vh] rounded-t-3xl sm:rounded-3xl flex flex-col overflow-hidden shadow-2xl animate-in slide-in-from-bottom duration-200">
+        <div className="fixed inset-0 z-[100] flex items-end justify-center bg-black/60 pb-[env(safe-area-inset-bottom)] backdrop-blur-xs">
+            <div className="flex h-[88dvh] max-h-[calc(100dvh-1rem)] w-full max-w-md flex-col overflow-hidden rounded-t-3xl bg-white shadow-2xl animate-in slide-in-from-bottom duration-200">
 
                 {/* Cabecera del Modal */}
                 <div className="bg-[#0047AB] text-white p-4 flex items-center justify-between">
@@ -39,7 +39,7 @@ export default function GameDetailModal({ game, onClose }) {
                 </div>
 
                 {/* Contenido con scroll */}
-                <div className="p-5 overflow-y-auto space-y-6 flex-1 text-slate-800">
+                <div className="flex-1 space-y-6 overflow-y-auto p-5 pb-8 text-slate-800">
                     {/* Enfrentamiento principal */}
                     <div className="grid grid-cols-3 items-center text-center bg-slate-50 p-4 rounded-2xl border border-slate-100">
                         {/* Visitante */}
