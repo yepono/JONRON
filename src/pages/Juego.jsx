@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Swords, ShieldAlert, Trophy, ArrowRight, Zap, ChevronDown, BarChart2, Coins, Dices } from 'lucide-react';
 import { getCurrentUser, updateUserProfile } from '../services/authService';
@@ -51,7 +51,7 @@ const generateRoster = (team, isUser = false) => {
         : null;
       
       roster.push({
-        id: `${team.id}-${r.role}-${i}-${Date.now()}`,
+        id: `${team.id}-${r.role}-${i}`,
         name: `Jugador ${r.role} ${i+1}`,
         team: team.name,
         role: r.role,
@@ -74,6 +74,11 @@ const rollDice = (rarity) => {
   if (rarity === 'Diamante') return Math.floor(Math.random() * 21) + 5; // 5 a 25
   if (rarity === 'Oro') return Math.floor(Math.random() * 20) + 1;      // 1 a 20
   return Math.floor(Math.random() * 15) + 1;                            // 1 a 15
+};
+
+const drawOpponentCard = (deck) => {
+  const index = Math.floor(Math.random() * deck.length);
+  return { card: deck[index], remainingDeck: deck.filter((_, cardIndex) => cardIndex !== index) };
 };
 
 // --- COMPONENTE CARTA ---
@@ -119,7 +124,8 @@ const BaseballCard = ({ card, onPlay, isPlayable = true }) => {
 };
 
 export default function Juego() {
-  const [user, setUser] = useState(null);
+  const combatTimerRef = useRef(null);
+  const [user, setUser] = useState(() => getCurrentUser());
   const [gameState, setGameState] = useState('menu'); 
   
   const [selectedOpponent, setSelectedOpponent] = useState(null);
@@ -142,15 +148,14 @@ export default function Juego() {
   const [battleMath, setBattleMath] = useState(null);
   const [roundWinner, setRoundWinner] = useState(null);
   
-  const [gameStats, setGameStats] = useState({ 
-    userBatPwr: 0, userPitPwr: 0, 
-    oppBatPwr: 0, oppPitPwr: 0, 
-    userCardsPlayed: 0, oppCardsPlayed: 0 
+  const [gameStats, setGameStats] = useState({
+    userBatPwr: 0, userPitPwr: 0,
+    oppBatPwr: 0, oppPitPwr: 0,
+    userBatCards: 0, userPitCards: 0,
+    oppBatCards: 0, oppPitCards: 0,
   });
 
-  useEffect(() => {
-    setUser(getCurrentUser());
-  }, []);
+  useEffect(() => () => window.clearTimeout(combatTimerRef.current), []);
 
   const handleStartGame = () => {
     if (!user) return alert('Inicia sesión para jugar.');
@@ -159,31 +164,39 @@ export default function Juego() {
 
   const selectOpponent = (team) => {
     setSelectedOpponent(team);
-    setOppRoster(generateRoster(team, false)); 
+    setOppRoster(generateRoster(team, false));
     setGameState('team_select');
   };
 
   const selectUserTeam = (team) => {
+    const newUserRoster = generateRoster(team, true);
+    const newOppRoster = [...oppRoster];
     setUserTeam(team);
-    setUserRoster(generateRoster(team, true)); 
+    setUserRoster(newUserRoster);
     setCurrentInning(1);
     setUserRuns(0);
     setOppRuns(0);
-    setGameStats({ userBatPwr: 0, userPitPwr: 0, oppBatPwr: 0, oppPitPwr: 0, userCardsPlayed: 0, oppCardsPlayed: 0 });
-    startInning(1, generateRoster(team, true), oppRoster);
+    setGameStats({
+      userBatPwr: 0, userPitPwr: 0,
+      oppBatPwr: 0, oppPitPwr: 0,
+      userBatCards: 0, userPitCards: 0,
+      oppBatCards: 0, oppPitCards: 0,
+    });
+    startInning(newUserRoster, newOppRoster);
   };
 
-  const startInning = (inning, uRoster, oRoster) => {
+  const startInning = (uRoster, oRoster) => {
     const currentOppDeck = oRoster.length > 0 ? oRoster : generateRoster(selectedOpponent, false);
-    const randomOppCard = currentOppDeck[Math.floor(Math.random() * currentOppDeck.length)];
-    
+    const { card: randomOppCard, remainingDeck } = drawOpponentCard(currentOppDeck);
+
     const roleNeeded = randomOppCard.role === 'Bateador' ? 'Lanzador' : 'Bateador';
     
     setCurrentOppCard(randomOppCard);
     setRequiredRole(roleNeeded);
     setFilterRole(roleNeeded); 
     
-    setOppRoster(currentOppDeck.filter(c => c.id !== randomOppCard.id));
+    setUserRoster(uRoster);
+    setOppRoster(remainingDeck);
     setPlayedCard(null);
     setRoundWinner(null);
     setBattleMath(null);
@@ -191,34 +204,38 @@ export default function Juego() {
   };
 
   const playUserCard = (card) => {
+    if (card.role !== requiredRole || gameState !== 'play_inning') return;
     setPlayedCard(card);
     setGameState('round_anim');
 
-    setTimeout(() => {
+    combatTimerRef.current = window.setTimeout(() => {
       // Combate Estilo Pokémon (Base + RNG)
       const userRoll = rollDice(card.rarity);
       const oppRoll = rollDice(currentOppCard.rarity);
       
       const userTotal = card.power + userRoll;
       const oppTotal = currentOppCard.power + oppRoll;
-      const isWin = userTotal >= oppTotal;
+      const result = userTotal > oppTotal ? 'user' : userTotal < oppTotal ? 'opp' : 'draw';
 
       setBattleMath({ userBase: card.power, userRoll, userTotal, oppBase: currentOppCard.power, oppRoll, oppTotal });
-      setRoundWinner(isWin ? 'user' : 'opp');
-      
-      if (isWin) setUserRuns(r => r + 1);
-      else setOppRuns(r => r + 1);
+      setRoundWinner(result);
+
+      if (result === 'user') setUserRuns((runs) => runs + 1);
+      if (result === 'opp') setOppRuns((runs) => runs + 1);
       
       setGameStats(prev => {
         const isUserBatter = card.role === 'Bateador';
+        const isOppBatter = currentOppCard.role === 'Bateador';
         return {
           ...prev,
           userBatPwr: prev.userBatPwr + (isUserBatter ? userTotal : 0),
           userPitPwr: prev.userPitPwr + (!isUserBatter ? userTotal : 0),
-          oppBatPwr: prev.oppBatPwr + (!isUserBatter ? oppTotal : 0),
-          oppPitPwr: prev.oppPitPwr + (isUserBatter ? oppTotal : 0),
-          userCardsPlayed: prev.userCardsPlayed + 1,
-          oppCardsPlayed: prev.oppCardsPlayed + 1
+          oppBatPwr: prev.oppBatPwr + (isOppBatter ? oppTotal : 0),
+          oppPitPwr: prev.oppPitPwr + (!isOppBatter ? oppTotal : 0),
+          userBatCards: prev.userBatCards + (isUserBatter ? 1 : 0),
+          userPitCards: prev.userPitCards + (!isUserBatter ? 1 : 0),
+          oppBatCards: prev.oppBatCards + (isOppBatter ? 1 : 0),
+          oppPitCards: prev.oppPitCards + (!isOppBatter ? 1 : 0),
         };
       });
       
@@ -232,7 +249,7 @@ export default function Juego() {
 
     if (currentInning < 9) {
       setCurrentInning(i => i + 1);
-      startInning(currentInning + 1, newRoster, oppRoster);
+      startInning(newRoster, oppRoster);
     } else {
       finishMatch();
     }
@@ -241,7 +258,7 @@ export default function Juego() {
   const finishMatch = () => {
     setGameState('match_result');
     if (userRuns > oppRuns) {
-      const updatedUser = updateUserProfile({ points: user.points + 100 });
+      const updatedUser = updateUserProfile({ points: (user?.points || 0) + 100 });
       setUser(updatedUser);
     }
   };
@@ -250,7 +267,9 @@ export default function Juego() {
     setGameState('menu');
   };
 
-  const filteredRoster = filterRole === 'Todos' ? userRoster : userRoster.filter(c => c.role === filterRole);
+  const filteredRoster = userRoster.filter((card) =>
+    card.role === requiredRole && (filterRole === 'Todos' || card.role === filterRole),
+  );
 
   return (
     <div className="min-h-full bg-[#080E1E] text-white pb-6 relative">
@@ -402,16 +421,16 @@ export default function Juego() {
 
         {gameState === 'round_result' && battleMath && (
           <motion.div key="round_result" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center justify-center h-[85vh] p-6 text-center">
-            <div className={`w-24 h-24 rounded-full flex items-center justify-center mb-4 shadow-2xl ${roundWinner === 'user' ? 'bg-emerald-500 shadow-emerald-500/50' : 'bg-rose-600 shadow-rose-600/50'}`}>
-              {roundWinner === 'user' ? <Trophy size={40} className="text-white" /> : <ShieldAlert size={40} className="text-white" />}
+            <div className={`w-24 h-24 rounded-full flex items-center justify-center mb-4 shadow-2xl ${roundWinner === 'user' ? 'bg-emerald-500 shadow-emerald-500/50' : roundWinner === 'draw' ? 'bg-amber-500 shadow-amber-500/50' : 'bg-rose-600 shadow-rose-600/50'}`}>
+              {roundWinner === 'user' ? <Trophy size={40} className="text-white" /> : roundWinner === 'draw' ? <Dices size={40} className="text-white" /> : <ShieldAlert size={40} className="text-white" />}
             </div>
             
             <h2 className="text-2xl font-black uppercase tracking-wider mb-2">
-              {roundWinner === 'user' ? '¡Carrera Anotada!' : 'Ponche / Out'}
+              {roundWinner === 'user' ? '¡Carrera Anotada!' : roundWinner === 'draw' ? 'Turno empatado' : 'Ponche / Out'}
             </h2>
             
-            <p className={`text-xs font-bold mb-6 ${roundWinner === 'user' ? 'text-emerald-400' : 'text-rose-400'}`}>
-              {roundWinner === 'user' ? 'Tu jugador dominó el turno.' : 'El rival dominó el turno.'}
+            <p className={`text-xs font-bold mb-6 ${roundWinner === 'user' ? 'text-emerald-400' : roundWinner === 'draw' ? 'text-amber-400' : 'text-rose-400'}`}>
+              {roundWinner === 'user' ? 'Tu jugador dominó el turno.' : roundWinner === 'draw' ? 'Ambos jugadores obtuvieron el mismo poder.' : 'El rival dominó el turno.'}
             </p>
 
             {/* COMBATE MATEÁTICO ESTILO POKÉMON */}
@@ -476,18 +495,18 @@ export default function Juego() {
                 <div className="bg-slate-800 p-3 rounded-lg border border-slate-700">
                   <span className="block text-center text-[9px] text-slate-400 mb-2 uppercase">Promedio Total de Bateo</span>
                   <div className="flex justify-between items-center">
-                    <span className="text-emerald-400 text-lg">{Math.round(gameStats.userBatPwr / (gameStats.userCardsPlayed / 2) || 0)}</span>
+                    <span className="text-emerald-400 text-lg">{Math.round(gameStats.userBatPwr / gameStats.userBatCards || 0)}</span>
                     <span className="text-slate-500">vs</span>
-                    <span className="text-rose-400 text-lg">{Math.round(gameStats.oppBatPwr / (gameStats.oppCardsPlayed / 2) || 0)}</span>
+                    <span className="text-rose-400 text-lg">{Math.round(gameStats.oppBatPwr / gameStats.oppBatCards || 0)}</span>
                   </div>
                 </div>
 
                 <div className="bg-slate-800 p-3 rounded-lg border border-slate-700">
                   <span className="block text-center text-[9px] text-slate-400 mb-2 uppercase">Promedio Total de Pitcheo</span>
                   <div className="flex justify-between items-center">
-                    <span className="text-emerald-400 text-lg">{Math.round(gameStats.userPitPwr / (gameStats.userCardsPlayed / 2) || 0)}</span>
+                    <span className="text-emerald-400 text-lg">{Math.round(gameStats.userPitPwr / gameStats.userPitCards || 0)}</span>
                     <span className="text-slate-500">vs</span>
-                    <span className="text-rose-400 text-lg">{Math.round(gameStats.oppPitPwr / (gameStats.oppCardsPlayed / 2) || 0)}</span>
+                    <span className="text-rose-400 text-lg">{Math.round(gameStats.oppPitPwr / gameStats.oppPitCards || 0)}</span>
                   </div>
                 </div>
               </div>

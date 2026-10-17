@@ -1,4 +1,4 @@
-import { useState, Suspense, useRef } from 'react';
+import { Component, useEffect, useState, Suspense, useRef } from 'react';
 import { Coins, X, CheckCircle2, ShoppingBag, AlertCircle, Search } from 'lucide-react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, PresentationControls, useTexture } from '@react-three/drei';
@@ -43,6 +43,23 @@ const SpinningCoin = ({ image, color }) => {
     </group>
   );
 };
+
+class ViewerErrorBoundary extends Component {
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error) {
+    console.error('No se pudo cargar la vista 3D del producto:', error);
+  }
+
+  render() {
+    if (this.state.hasError) return this.props.fallback;
+    return this.props.children;
+  }
+}
 
 // --- VISOR 3D (CANVAS) ---
 const Item3DViewer = ({ image, color }) => {
@@ -99,6 +116,11 @@ export default function Tienda() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [feedback, setFeedback] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isBuying, setIsBuying] = useState(false);
+  const feedbackTimerRef = useRef(null);
+  const closeButtonRef = useRef(null);
+  const dialogRef = useRef(null);
+  const returnFocusRef = useRef(null);
 
   const inventoryIds = user?.inventory?.map(i => i.id) || [];
   const normalizedQuery = searchQuery.trim().toLocaleLowerCase('es');
@@ -106,16 +128,73 @@ export default function Tienda() {
     `${item.name} ${item.type} ${item.desc}`.toLocaleLowerCase('es').includes(normalizedQuery),
   );
 
+  useEffect(() => () => window.clearTimeout(feedbackTimerRef.current), []);
+
+  useEffect(() => {
+    if (!selectedItem) return undefined;
+
+    const previouslyFocused = document.activeElement;
+    closeButtonRef.current?.focus();
+
+    const handleDialogKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setSelectedItem(null);
+      }
+
+      if (event.key !== 'Tab') return;
+      const focusableElements = dialogRef.current?.querySelectorAll(
+        'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusableElements?.length) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleDialogKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleDialogKeyDown);
+      previouslyFocused?.focus?.();
+    };
+  }, [selectedItem]);
+
+  const openItem = (item, event) => {
+    returnFocusRef.current = event.currentTarget;
+    setSelectedItem(item);
+  };
+
+  const closeItem = () => {
+    setSelectedItem(null);
+    window.requestAnimationFrame(() => returnFocusRef.current?.focus());
+  };
+
+  const showFeedback = (nextFeedback) => {
+    window.clearTimeout(feedbackTimerRef.current);
+    setFeedback(nextFeedback);
+    feedbackTimerRef.current = window.setTimeout(() => setFeedback(null), 3000);
+  };
+
   const handleBuy = () => {
+    if (!selectedItem || isBuying) return;
+
     try {
+      setIsBuying(true);
       const updatedUser = buyShopItem(selectedItem);
       setUser(updatedUser);
-      setFeedback({ type: 'success', msg: `¡Has adquirido ${selectedItem.name}!` });
-      setTimeout(() => setFeedback(null), 3000);
+      showFeedback({ type: 'success', msg: `¡Has adquirido ${selectedItem.name}!` });
       setSelectedItem(null);
     } catch (error) {
-      setFeedback({ type: 'error', msg: error.message });
-      setTimeout(() => setFeedback(null), 3000);
+      showFeedback({ type: 'error', msg: error.message });
+    } finally {
+      setIsBuying(false);
     }
   };
 
@@ -160,10 +239,11 @@ export default function Tienda() {
         {filteredItems.map((item) => {
           const isOwned = inventoryIds.includes(item.id);
           return (
-            <div
+            <button
+              type="button"
               key={item.id}
-              onClick={() => setSelectedItem(item)}
-              className="bg-white rounded-3xl p-3 border border-slate-100 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col items-center"
+              onClick={(event) => openItem(item, event)}
+              className="flex flex-col items-center rounded-3xl border border-slate-100 bg-white p-3 text-left shadow-sm transition-all hover:shadow-md"
             >
               <div className="w-full h-28 bg-slate-50 rounded-2xl mb-3 flex items-center justify-center p-2 relative">
                 {isOwned && (
@@ -180,7 +260,7 @@ export default function Tienda() {
                   {isOwned ? 'En Colección' : <><Coins size={12} /> {item.price} pts</>}
                 </div>
               </div>
-            </div>
+            </button>
           );
         })}
       </div>
@@ -196,7 +276,7 @@ export default function Tienda() {
           <button
             type="button"
             aria-label="Cerrar detalles del producto"
-            onClick={() => setSelectedItem(null)}
+              onClick={closeItem}
             className="absolute inset-0 h-full w-full cursor-default"
           />
 
@@ -204,6 +284,7 @@ export default function Tienda() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="shop-item-title"
+            ref={dialogRef}
             className="relative z-10 mx-auto flex max-h-[calc(100dvh-env(safe-area-inset-top)-env(safe-area-inset-bottom)-1rem)] w-full max-w-md flex-col overflow-hidden rounded-t-3xl bg-white shadow-[0_-10px_40px_rgba(0,0,0,0.3)]"
           >
             <div className="flex shrink-0 items-center justify-between border-b border-slate-100 p-4">
@@ -211,13 +292,23 @@ export default function Tienda() {
                 <span className="text-[10px] font-bold text-amber-500 uppercase tracking-widest">{selectedItem.type}</span>
                 <h2 id="shop-item-title" className="text-lg font-black text-slate-900">{selectedItem.name}</h2>
               </div>
-              <button type="button" aria-label="Cerrar" onClick={() => setSelectedItem(null)} className="rounded-full bg-slate-100 p-2 text-slate-500">
+              <button ref={closeButtonRef} type="button" aria-label="Cerrar" onClick={closeItem} className="rounded-full bg-slate-100 p-2 text-slate-500">
                 <X size={20} />
               </button>
             </div>
 
             {/* VISUALIZADOR 3D INTERACTIVO */}
-            <Item3DViewer image={selectedItem.image} color={selectedItem.color} />
+            <ViewerErrorBoundary
+              key={selectedItem.image}
+              fallback={(
+                <div className="flex h-[clamp(10rem,28dvh,16rem)] shrink-0 flex-col items-center justify-center gap-3 bg-slate-900 p-4 text-center text-xs text-slate-300">
+                  <img src={selectedItem.image} alt={selectedItem.name} className="h-24 w-24 object-contain" />
+                  <span>Vista 3D no disponible. Se muestra el emblema del producto.</span>
+                </div>
+              )}
+            >
+              <Item3DViewer image={selectedItem.image} color={selectedItem.color} />
+            </ViewerErrorBoundary>
 
             <div className="min-h-0 flex-1 overflow-y-auto px-4 py-3">
               <p className="text-center text-sm leading-relaxed text-slate-600">
@@ -227,16 +318,17 @@ export default function Tienda() {
 
             <div className="shrink-0 border-t border-slate-100 bg-white p-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
               {inventoryIds.includes(selectedItem.id) ? (
-                <button type="button" disabled className="flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl bg-emerald-500 py-3.5 font-black text-white opacity-80">
+                  <button type="button" disabled className="flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl bg-emerald-500 py-3.5 font-black text-white opacity-80">
                   <CheckCircle2 size={18} /> Artículo en tu Perfil
                 </button>
               ) : (
                 <button
                   type="button"
                   onClick={handleBuy}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0047AB] py-3.5 font-black text-white shadow-xl transition-transform hover:bg-blue-800 active:scale-95"
+                  disabled={isBuying}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0047AB] py-3.5 font-black text-white shadow-xl transition-transform hover:bg-blue-800 active:scale-95 disabled:cursor-wait disabled:opacity-70"
                 >
-                  <ShoppingBag size={18} /> Comprar por {selectedItem.price} Puntos
+                  <ShoppingBag size={18} /> {isBuying ? 'Procesando compra...' : `Comprar por ${selectedItem.price} Puntos`}
                 </button>
               )}
             </div>
