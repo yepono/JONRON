@@ -10,6 +10,8 @@ export default function Calendario() {
   const [searchQuery, setSearchQuery] = useState('');
   const [datesData, setDatesData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
+  const [retryCount, setRetryCount] = useState(0);
   const [selectedGame, setSelectedGame] = useState(null);
 
   // Estado para la vista semanal
@@ -17,7 +19,12 @@ export default function Calendario() {
 
   const calculateDateRange = (mode) => {
     const now = new Date();
-    const formatDate = (d) => d.toISOString().split('T')[0];
+    const formatDate = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
 
     const end = new Date(now);
 
@@ -34,16 +41,28 @@ export default function Calendario() {
   };
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchGames = async () => {
       setLoading(true);
+      setLoadError('');
       const { start, end } = calculateDateRange(viewMode);
-      const data = await getSchedule(start, end);
-      setDatesData(data);
-      setLoading(false);
+      try {
+        const data = await getSchedule(start, end, { signal: controller.signal });
+        setDatesData(data);
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          setDatesData([]);
+          setLoadError(error.message || 'No se pudo cargar el calendario.');
+        }
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
+      }
     };
 
     fetchGames();
-  }, [viewMode]);
+    return () => controller.abort();
+  }, [viewMode, retryCount]);
 
   const normalizedQuery = searchQuery.trim().toLocaleLowerCase('es');
   const visibleDates = datesData
@@ -139,6 +158,17 @@ export default function Calendario() {
         {loading ? (
           <div className="py-12 text-center text-xs text-slate-400">
             Cargando partidos oficiales...
+          </div>
+        ) : loadError ? (
+          <div className="rounded-2xl border border-rose-100 bg-rose-50 p-6 text-center text-xs text-rose-700">
+            <p>{loadError}</p>
+            <button
+              type="button"
+              onClick={() => setRetryCount((count) => count + 1)}
+              className="mt-3 rounded-lg bg-rose-700 px-4 py-2 font-bold text-white"
+            >
+              Reintentar
+            </button>
           </div>
         ) : visibleDates.length === 0 ? (
           <div className="bg-white rounded-2xl p-6 text-center text-xs text-slate-500 border border-slate-100">
