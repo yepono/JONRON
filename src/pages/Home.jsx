@@ -8,6 +8,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -16,6 +17,7 @@ export default function Home() {
         setPosts(data);
       } catch (error) {
         console.error('Error al cargar publicaciones:', error);
+        setLoadError(error.message);
       } finally {
         setLoading(false);
       }
@@ -47,6 +49,10 @@ export default function Home() {
 
         {loading ? (
           <div className="text-center py-6 text-xs text-slate-400">Cargando noticias...</div>
+        ) : loadError ? (
+          <div role="alert" className="rounded-xl bg-white p-5 text-center text-xs text-red-700">
+            {loadError}
+          </div>
         ) : filteredPosts.length === 0 ? (
           <div className="rounded-xl bg-white p-5 text-center text-xs text-slate-500">
             No hay publicaciones que coincidan con “{searchQuery}”.
