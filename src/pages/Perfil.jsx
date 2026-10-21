@@ -3,6 +3,7 @@ import { User, Mail, Calendar, LogOut, Coins, CreditCard, ShoppingBag, CheckCirc
 import { Link } from 'react-router-dom';
 import Login from './Login';
 import { getCurrentUser, logoutUser } from '../services/authService';
+import { getAdminSession, logoutAdmin } from '../services/adminAuthService';
 import americanLeagueTeams from '../data/americanLeagueTeams.json';
 
 const CollectionCard = ({ card, scanned, compact = false }) => (
@@ -26,20 +27,28 @@ const CollectionCard = ({ card, scanned, compact = false }) => (
 );
 
 export default function Perfil() {
+  const [adminSession, setAdminSession] = useState(() => getAdminSession());
   const [user, setUser] = useState(() => getCurrentUser());
   const [isCollectionOpen, setIsCollectionOpen] = useState(false);
+  const profile = adminSession || user;
+  const isAdmin = Boolean(adminSession);
 
   const handleLogout = () => {
-    logoutUser();
+    if (isAdmin) {
+      logoutAdmin();
+      setAdminSession(null);
+    } else {
+      logoutUser();
+    }
     setUser(null);
   };
 
-  if (!user) {
+  if (!profile) {
     return <Login onLoginSuccess={setUser} />;
   }
 
-  const inventory = user.inventory || [];
-  const scannedCards = user.scannedCards || [];
+  const inventory = profile.inventory || [];
+  const scannedCards = profile.scannedCards || [];
   const scannedCardIds = new Set(scannedCards.map((card) => card.id));
   const scannedTeamCards = americanLeagueTeams.filter((card) => scannedCardIds.has(card.id));
   const pendingTeamCards = americanLeagueTeams.filter((card) => !scannedCardIds.has(card.id));
@@ -49,15 +58,15 @@ export default function Perfil() {
       {/* Cabecera */}
       <div className="bg-[#0047AB] text-white pt-8 pb-10 px-6 rounded-b-3xl shadow-md text-center">
         <div className="w-20 h-20 bg-white/20 border-2 border-white/40 rounded-full mx-auto flex items-center justify-center mb-3 shadow-inner overflow-hidden">
-          {user.avatar ? (
-            <img src={user.avatar} alt="Foto de perfil" className="w-full h-full object-cover" />
+          {profile.avatar ? (
+            <img src={profile.avatar} alt="Foto de perfil" className="w-full h-full object-cover" />
           ) : (
             <User size={38} className="text-white" />
           )}
         </div>
-        <h2 className="text-xl font-black uppercase tracking-wider">{user.username}</h2>
+        <h2 className="text-xl font-black uppercase tracking-wider">{profile.username}</h2>
         <span className="text-[10px] bg-amber-400 text-slate-950 font-extrabold px-2.5 py-0.5 rounded-full inline-block mt-1">
-          Fan de {user.favoriteTeam || 'Liga Americana'}
+          {isAdmin ? 'Administrador de JONRÓN' : `Fan de ${profile.favoriteTeam || 'Liga Americana'}`}
         </span>
       </div>
 
@@ -69,7 +78,7 @@ export default function Perfil() {
             <span className="text-[10px] text-amber-100 font-bold uppercase tracking-wider block">Puntos de Aficionado</span>
             <div className="flex items-center gap-2">
               <Coins size={22} className="text-amber-200" />
-              <span className="text-2xl font-black">{user.points?.toLocaleString() || 0}</span>
+              <span className="text-2xl font-black">{profile.points?.toLocaleString() || 0}</span>
               <span className="text-xs font-bold text-amber-100">Pts Jonrón</span>
             </div>
           </div>
@@ -183,11 +192,11 @@ export default function Perfil() {
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Información del Perfil</span>
           <div className="flex items-center justify-between py-1 border-b border-slate-50">
             <span className="text-slate-500 flex items-center gap-1.5"><Mail size={13} className="text-blue-600" /> Correo:</span>
-            <strong className="text-slate-800 truncate max-w-[170px]">{user.email}</strong>
+            <strong className="text-slate-800 truncate max-w-[170px]">{profile.email}</strong>
           </div>
           <div className="flex items-center justify-between py-1">
             <span className="text-slate-500 flex items-center gap-1.5"><Calendar size={13} className="text-blue-600" /> Miembro desde:</span>
-            <strong className="text-slate-800">{user.createdAt ? new Date(user.createdAt).toLocaleDateString('es-MX', { month: 'short', year: 'numeric' }) : '-'}</strong>
+            <strong className="text-slate-800">{profile.createdAt || profile.loggedAt ? new Date(profile.createdAt || profile.loggedAt).toLocaleDateString('es-MX', { month: 'short', year: 'numeric' }) : '-'}</strong>
           </div>
         </div>
 

@@ -17,7 +17,7 @@ function getYoutubeEmbedUrl(mediaUrl) {
     }
 }
 
-export default function PostCard({ post, mediaOnly = false }) {
+export default function PostCard({ post, mediaOnly = false, onReadMore }) {
     const [effectsOpen, setEffectsOpen] = useState(false);
     const [selectedEffect, setSelectedEffect] = useState('none');
     const { author, content, mediaUrl, createdAt } = post;
@@ -40,20 +40,6 @@ export default function PostCard({ post, mediaOnly = false }) {
             {!mediaOnly && (
                 <>
                     <div className="p-3 flex items-center gap-3">
-                        {author.avatarUrl ? (
-                            <img
-                                src={author.avatarUrl}
-                                alt={author.name}
-                                className="w-10 h-10 rounded-full object-cover border border-blue-100"
-                            />
-                        ) : (
-                            <div
-                                aria-hidden="true"
-                                className="w-10 h-10 rounded-full border border-blue-100 bg-blue-50 flex items-center justify-center text-xs font-bold text-blue-700"
-                            >
-                                {author.name.slice(0, 2).toUpperCase()}
-                            </div>
-                        )}
                         <div className="flex-1 min-w-0">
                             <h4 className="text-sm font-bold text-slate-800 leading-tight">
                                 {author.name}
@@ -70,8 +56,19 @@ export default function PostCard({ post, mediaOnly = false }) {
                     )}
                     {content && (
                         <p className="px-3 pb-2 text-xs text-slate-600 leading-relaxed">
-                            {content}
+                            {content.length > 180 ? `${content.slice(0, 180)}...` : content}
                         </p>
+                    )}
+                    {onReadMore && (
+                        <div className="px-3 pb-3">
+                            <button
+                                type="button"
+                                onClick={onReadMore}
+                                className="text-xs font-bold text-[#0047AB] hover:underline"
+                            >
+                                Leer publicación completa
+                            </button>
+                        </div>
                     )}
                 </>
             )}

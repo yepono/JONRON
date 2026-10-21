@@ -49,6 +49,31 @@ export const getPosts = async () => {
   }));
 };
 
+export const createPost = async ({ username, category, title, description, img, publishedAt }) => {
+  if (!supabase) {
+    throw new Error('Configura las variables de Supabase antes de crear una publicación.');
+  }
+
+  const { data, error } = await supabase
+    .from('publications')
+    .insert({
+      username,
+      category,
+      title,
+      description,
+      img: img || null,
+      published_at: publishedAt || new Date().toISOString(),
+    })
+    .select('id, username, category, published_at, img, description, title')
+    .single();
+
+  if (error) {
+    throw new Error(`No se pudo crear la publicación: ${error.message}`);
+  }
+
+  return data;
+};
+
 export const getVideos = async () => {
   return new Promise((resolve) => {
     setTimeout(() => {

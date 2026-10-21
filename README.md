@@ -19,8 +19,8 @@ If you are developing a production application, we recommend using TypeScript wi
 
 La página de inicio consulta la tabla `publications` y ordena las publicaciones por `published_at` descendente.
 
-1. Copia `.env.example` a `.env.local`.
-2. Configura `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` con la URL del proyecto y su clave publicable (anon).
+1. Configura en `.env.local` `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY` con la URL del proyecto y su clave publicable. También se acepta `VITE_SUPABASE_ANON_KEY`.
+2. Configura `VITE_ADMIN_EMAIL` y `VITE_ADMIN_PASSWORD` para cambiar las credenciales demo. Si no las defines, se usan `admin@jonron.com` y `admin123`. Desde el login admin también se pueden crear cuentas adicionales; se guardan en `localStorage` como parte de este demo.
 3. En Supabase, habilita Row Level Security para `publications` y permite lectura pública para este demo:
 
 ```sql
@@ -31,6 +31,12 @@ ON public.publications
 FOR SELECT
 TO anon
 USING (true);
+
+CREATE POLICY "Allow demo publication inserts"
+ON public.publications
+FOR INSERT
+TO anon
+WITH CHECK (true);
 ```
 
-Reinicia `npm run dev` después de cambiar las variables. No uses una clave `service_role` en el frontend.
+Reinicia `npm run dev` después de cambiar las variables. Esta policy permite insertar a cualquier cliente porque el rol admin se simula con `localStorage`; para producción debe reemplazarse por Supabase Auth y una policy basada en el rol autenticado. No uses una clave `service_role` en el frontend.

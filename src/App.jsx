@@ -13,6 +13,8 @@ import Juego from './pages/Juego';
 import Escaneo from './pages/Escaneo';
 import Tienda from './pages/Tienda';
 import Torneo from './pages/Torneo';
+import AdminLogin from './pages/AdminLogin';
+import AdminPublication from './pages/AdminPublication';
 
 export default function App() {
   return (
@@ -46,6 +48,8 @@ function AppShell() {
               <Route path="/escaneo" element={<Escaneo />} />
               <Route path="/tienda" element={<Tienda />} />
               <Route path="/torneo" element={<Torneo />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin/publicar" element={<AdminPublication />} />
             </Routes>
           </main>
           <BottomNav />

@@ -1,5 +1,6 @@
 // src/services/authService.js
 import americanLeagueTeams from '../data/americanLeagueTeams.json';
+import { getAdminSession, updateAdminSession } from './adminAuthService';
 
 const USERS_STORAGE_KEY = 'jonron_users';
 const CURRENT_USER_KEY = 'jonron_current_user';
@@ -46,6 +47,9 @@ export const loginUser = ({ email, password }) => {
 };
 
 export const getCurrentUser = () => {
+    const adminSession = getAdminSession();
+    if (adminSession) return adminSession;
+
     const user = localStorage.getItem(CURRENT_USER_KEY);
     return user ? JSON.parse(user) : null;
 };
@@ -57,6 +61,10 @@ export const logoutUser = () => {
 export const updateUserProfile = (updatedFields) => {
     const currentUser = getCurrentUser();
     if (!currentUser) return null;
+
+    if (currentUser.role === 'admin') {
+        return updateAdminSession(updatedFields);
+    }
 
     const users = JSON.parse(localStorage.getItem(USERS_STORAGE_KEY) || '[]');
     const updatedUser = { ...currentUser, ...updatedFields };
