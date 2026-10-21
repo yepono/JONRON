@@ -40,11 +40,20 @@ export default function PostCard({ post, mediaOnly = false }) {
             {!mediaOnly && (
                 <>
                     <div className="p-3 flex items-center gap-3">
-                        <img
-                            src={author.avatarUrl}
-                            alt={author.name}
-                            className="w-10 h-10 rounded-full object-cover border border-blue-100"
-                        />
+                        {author.avatarUrl ? (
+                            <img
+                                src={author.avatarUrl}
+                                alt={author.name}
+                                className="w-10 h-10 rounded-full object-cover border border-blue-100"
+                            />
+                        ) : (
+                            <div
+                                aria-hidden="true"
+                                className="w-10 h-10 rounded-full border border-blue-100 bg-blue-50 flex items-center justify-center text-xs font-bold text-blue-700"
+                            >
+                                {author.name.slice(0, 2).toUpperCase()}
+                            </div>
+                        )}
                         <div className="flex-1 min-w-0">
                             <h4 className="text-sm font-bold text-slate-800 leading-tight">
                                 {author.name}
@@ -54,9 +63,16 @@ export default function PostCard({ post, mediaOnly = false }) {
                         <span className="text-[10px] text-slate-400">{createdAt}</span>
                     </div>
 
-                    <p className="px-3 pb-2 text-xs text-slate-600 leading-relaxed">
-                        {content}
-                    </p>
+                    {post.title && (
+                        <h3 className="px-3 pb-1 text-sm font-bold text-slate-800 leading-snug">
+                            {post.title}
+                        </h3>
+                    )}
+                    {content && (
+                        <p className="px-3 pb-2 text-xs text-slate-600 leading-relaxed">
+                            {content}
+                        </p>
+                    )}
                 </>
             )}
 
