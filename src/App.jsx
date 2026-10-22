@@ -52,7 +52,7 @@ function AppShell() {
               <Route path="/admin/publicar" element={<AdminPublication />} />
             </Routes>
           </main>
-          <BottomNav />
+          {pathname !== '/juego' && <BottomNav />}
       </div>
     </div>
   );

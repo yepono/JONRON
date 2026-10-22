@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Swords, ShieldAlert, Trophy, ArrowRight, Zap, ChevronDown, BarChart2, Coins, Dices, BookOpen, Target, CheckCircle2, Gauge, Crosshair } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Swords, ShieldAlert, Trophy, ArrowRight, Zap, ChevronDown, BarChart2, Coins, Dices, BookOpen, Target, CheckCircle2, Gauge, Crosshair, Home } from 'lucide-react';
 import { getCurrentUser, updateUserProfile } from '../services/authService';
 import teamCardImages from '../data/juegoEquipos.json';
 
@@ -152,11 +153,13 @@ const BaseballCard = ({ card, onPlay, isPlayable = true, compact = false, scale 
 };
 
 export default function Juego() {
+  const navigate = useNavigate();
   const combatTimerRef = useRef(null);
   const selectionTimerRef = useRef(null);
   const [user, setUser] = useState(() => getCurrentUser());
   const [gameState, setGameState] = useState('menu'); 
   const [showOnboarding, setShowOnboarding] = useState(() => localStorage.getItem('jonron-cards-onboarding') !== 'seen');
+  const [showExitModal, setShowExitModal] = useState(false);
   const [selectionAnimation, setSelectionAnimation] = useState(null);
   
   const [selectedOpponent, setSelectedOpponent] = useState(null);
@@ -315,6 +318,10 @@ export default function Juego() {
     setGameState('menu');
   };
 
+  const handleExitGame = () => {
+    navigate('/');
+  };
+
   const filteredRoster = userRoster.filter((card) =>
     card.role === requiredRole && (filterRole === 'Todos' || card.role === filterRole),
   );
@@ -322,9 +329,19 @@ export default function Juego() {
   return (
     <div className="min-h-full bg-[#080E1E] text-white pb-6 relative">
       <div className="bg-[#0047AB] px-4 py-3 shadow-lg flex justify-between items-center relative z-20">
-        <div>
-          <h1 className="text-lg font-black tracking-widest uppercase">Cards Battle</h1>
-          <span className="text-[10px] text-blue-200">Coach Mode (9 Innings)</span>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setShowExitModal(true)}
+            aria-label="Salir del juego"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          >
+            <Home size={18} />
+          </button>
+          <div>
+            <h1 className="text-lg font-black tracking-widest uppercase">Cards Battle</h1>
+            <span className="text-[10px] text-blue-200">Coach Mode (9 Innings)</span>
+          </div>
         </div>
         <div className="bg-amber-400 text-slate-900 px-3 py-1 rounded-full flex items-center gap-1.5 font-bold shadow-md text-xs">
           <Coins size={14} /> {user?.points?.toLocaleString() || 0} pts
@@ -332,6 +349,45 @@ export default function Juego() {
       </div>
 
       <AnimatePresence>
+        {showExitModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm"
+            role="presentation"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="exit-game-title"
+              className="w-full max-w-sm rounded-3xl border border-slate-700 bg-slate-900 p-6 text-center shadow-2xl"
+            >
+              <h2 id="exit-game-title" className="text-xl font-black text-white">¿Estás seguro de salir del juego?</h2>
+              <p className="mt-2 text-sm text-slate-300">Perderás tus puntos</p>
+              <div className="mt-6 flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowExitModal(false)}
+                  className="flex-1 rounded-2xl border border-slate-600 px-4 py-3 font-black text-slate-200 transition-colors hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  onClick={handleExitGame}
+                  className="flex-1 rounded-2xl bg-rose-500 px-4 py-3 font-black text-white transition-colors hover:bg-rose-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300"
+                >
+                  Salir
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
         {showOnboarding && (
           <motion.div
             initial={{ opacity: 0 }}
