@@ -1,14 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Swords, ShieldAlert, Trophy, ArrowRight, Zap, ChevronDown, BarChart2, Coins, Dices, BookOpen, Target, CheckCircle2, Gauge, Crosshair, Flame } from 'lucide-react';
+import { Swords, ShieldAlert, Trophy, ArrowRight, Zap, ChevronDown, BarChart2, Coins, Dices, BookOpen, Target, CheckCircle2, Gauge, Crosshair } from 'lucide-react';
 import { getCurrentUser, updateUserProfile } from '../services/authService';
 import teamCardImages from '../data/juegoEquipos.json';
-
-const teamImageAssets = import.meta.glob('../assets/juego/**/*.{png,jpg,jpeg,webp}', {
-  eager: true,
-  query: '?url',
-  import: 'default',
-});
 
 // --- FRANQUICIAS DISPONIBLES ---
 const GAME_TEAMS = [
@@ -50,17 +44,6 @@ const getTeamStats = (team) => ({
   bullpen: Math.max(70, team.basePower - 1),
 });
 
-const getStrategyHint = (opponentCard, roster) => {
-  if (!opponentCard) return 'Observa al rival y guarda tus cartas Diamante para un turno decisivo.';
-  const availableCards = roster.filter((card) => card.role === (opponentCard.role === 'Bateador' ? 'Lanzador' : 'Bateador'));
-  const bestCard = availableCards[0];
-  if (!bestCard) return `Necesitas un ${opponentCard.role === 'Bateador' ? 'Lanzador' : 'Bateador'} para responder a esta jugada.`;
-  if (bestCard.power >= opponentCard.power + 5) return `Ventaja clara: ${bestCard.name} supera la base rival. Úsala para buscar la carrera.`;
-  if (bestCard.rarity === 'Diamante') return 'Turno de alto riesgo: una carta Diamante aumenta el dado, pero quizá convenga reservarla.';
-  if (bestCard.power < opponentCard.power) return 'El rival parte arriba. Busca una carta con mayor poder o acepta guardar tus mejores recursos.';
-  return `Turno parejo: ${bestCard.name} puede competir y conserva tus cartas Diamante para después.`;
-};
-
 // --- GENERADOR DINÁMICO DE ROSTERS ---
 const generateRoster = (team, isUser = false) => {
   const roles = [
@@ -77,7 +60,7 @@ const generateRoster = (team, isUser = false) => {
       const rarity = power >= 92 ? 'Diamante' : power >= 86 ? 'Oro' : 'Plata';
       const imageFiles = teamCardImages[team.name]?.[r.role] ?? [];
       const imageFile = imageFiles[Math.floor(Math.random() * imageFiles.length)];
-      const imagePath = imageFile || null;
+      const teamLogo = `https://www.mlbstatic.com/team-logos/${team.logoId}.svg`;
       
       roster.push({
         id: `${team.id}-${r.role}-${i}`,
@@ -87,8 +70,8 @@ const generateRoster = (team, isUser = false) => {
         power,
         rarity,
         color: team.color,
-        image: imagePath ? (teamImageAssets[imagePath] || `https://www.mlbstatic.com/team-logos/${team.logoId}.svg`) : `https://www.mlbstatic.com/team-logos/${team.logoId}.svg`,
-        logo: `https://www.mlbstatic.com/team-logos/${team.logoId}.svg`,
+        image: imageFile || teamLogo,
+        logo: teamLogo,
         stats: { 
           [r.stat1]: power > 90 ? (r.role === 'Bateador' ? '.310' : '2.50') : (r.role === 'Bateador' ? '.260' : '3.80'), 
           [r.stat2]: Math.floor(power * (r.role === 'Bateador' ? 0.35 : 1.8)) 
@@ -150,14 +133,14 @@ const BaseballCard = ({ card, onPlay, isPlayable = true, compact = false, scale 
         </div>
         
         {/* Pie de Carta (Nombre y Estadísticas) */}
-        <div className={`${compact ? 'p-2 rounded-lg' : 'p-3 rounded-xl'} bg-slate-950/90 border border-white/10 w-full shadow-2xl`}>
+        <div className={`${compact ? 'p-2 rounded-lg' : 'p-3 rounded-xl'} bg-slate-950/70 border border-white/20 w-full shadow-2xl backdrop-blur-[2px]`}>
           <span className={`text-[9px] block font-bold uppercase tracking-wider mb-1 ${isPlayable ? 'text-amber-400' : 'text-rose-400'}`}>{card.role}</span>
           <span className={`${compact ? 'text-[10px]' : 'text-sm'} font-black text-white truncate block mb-2`}>{card.name}</span>
           
           <div className="grid grid-cols-2 gap-2 border-t border-white/10 pt-2">
             {Object.entries(card.stats).map(([key, val]) => (
-              <div key={key} className="text-center bg-black/50 rounded p-1">
-                <span className="text-[8px] text-slate-400 block">{key}</span>
+              <div key={key} className="text-center bg-black/35 rounded p-1">
+                <span className="text-[8px] text-slate-300 block">{key}</span>
                 <span className="text-xs font-mono font-bold text-white">{val}</span>
               </div>
             ))}
@@ -184,7 +167,6 @@ export default function Juego() {
   
   const [requiredRole, setRequiredRole] = useState('Bateador');
   const [filterRole, setFilterRole] = useState('Todos');
-  const [strategyHint, setStrategyHint] = useState('Elige tu respuesta observando el rol, el poder y la rareza.');
   const [handScale, setHandScale] = useState(1);
 
   const [currentInning, setCurrentInning] = useState(1);
@@ -266,7 +248,6 @@ export default function Juego() {
     setPlayedCard(null);
     setRoundWinner(null);
     setBattleMath(null);
-    setStrategyHint(getStrategyHint(randomOppCard, uRoster));
     setGameState('play_inning');
   };
 
