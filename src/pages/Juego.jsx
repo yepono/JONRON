@@ -87,11 +87,8 @@ const generateRoster = (team, isUser = false) => {
         power,
         rarity,
         color: team.color,
-        image: imagePath?.startsWith('http')
-          ? imagePath
-          : imagePath
-            ? teamImageAssets[`../assets/juego/${team.name.toLowerCase()}/${imagePath}`]
-            : null,
+        image: imagePath ? (teamImageAssets[imagePath] || `https://www.mlbstatic.com/team-logos/${team.logoId}.svg`) : `https://www.mlbstatic.com/team-logos/${team.logoId}.svg`,
+        logo: `https://www.mlbstatic.com/team-logos/${team.logoId}.svg`,
         stats: { 
           [r.stat1]: power > 90 ? (r.role === 'Bateador' ? '.310' : '2.50') : (r.role === 'Bateador' ? '.260' : '3.80'), 
           [r.stat2]: Math.floor(power * (r.role === 'Bateador' ? 0.35 : 1.8)) 
@@ -115,7 +112,7 @@ const drawOpponentCard = (deck) => {
 };
 
 // --- COMPONENTE CARTA ---
-const BaseballCard = ({ card, onPlay, isPlayable = true, compact = false }) => {
+const BaseballCard = ({ card, onPlay, isPlayable = true, compact = false, scale = 1 }) => {
   const handleKeyDown = (event) => {
     if (isPlayable && onPlay && (event.key === 'Enter' || event.key === ' ')) {
       event.preventDefault();
@@ -131,7 +128,8 @@ const BaseballCard = ({ card, onPlay, isPlayable = true, compact = false }) => {
       tabIndex={isPlayable ? 0 : undefined}
       aria-label={isPlayable ? `Jugar carta ${card.name}, poder ${card.power}` : card.name}
       onKeyDown={handleKeyDown}
-      className={`relative ${compact ? 'w-[min(42vw,10.5rem)] h-[min(58vw,14rem)]' : 'w-[min(78vw,12rem)] h-[min(104vw,18rem)]'} shrink-0 rounded-2xl overflow-hidden border-2 ${isPlayable ? 'border-slate-500 cursor-pointer shadow-lg hover:border-amber-400 focus-visible:border-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400' : 'border-rose-500 shadow-rose-500/30'} bg-slate-900`}
+      style={compact ? { width: `${8.5 * scale}rem`, height: `${11.5 * scale}rem` } : undefined}
+      className={`relative ${compact ? '' : 'w-[min(78vw,12rem)] h-[min(104vw,18rem)]'} shrink-0 rounded-2xl overflow-hidden border-2 ${isPlayable ? 'border-slate-500 cursor-pointer shadow-lg hover:border-amber-400 focus-visible:border-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400' : 'border-rose-500 shadow-rose-500/30'} bg-slate-900`}
       onClick={() => isPlayable && onPlay && onPlay(card)}
     >
       <div className={`absolute inset-0 bg-gradient-to-t ${card.color} opacity-70 z-10`} />
@@ -143,9 +141,12 @@ const BaseballCard = ({ card, onPlay, isPlayable = true, compact = false }) => {
           <div className={`${compact ? 'w-9 h-9 text-sm' : 'w-12 h-12 text-xl'} rounded-full bg-slate-900 border-2 ${isPlayable ? 'border-amber-400' : 'border-rose-500'} flex items-center justify-center font-black text-white shadow-xl`}>
             {card.power}
           </div>
-          <span className="bg-black/80 px-1.5 py-1 rounded text-[8px] font-black text-amber-400 uppercase tracking-widest border border-white/10">
-            {card.rarity}
-          </span>
+          <div className="flex items-center gap-1">
+            <img src={card.logo} alt="" className="h-6 w-6 rounded-full bg-white p-1" />
+            <span className="bg-black/80 px-1.5 py-1 rounded text-[8px] font-black text-amber-400 uppercase tracking-widest border border-white/10">
+              {card.rarity}
+            </span>
+          </div>
         </div>
         
         {/* Pie de Carta (Nombre y Estadísticas) */}
@@ -184,6 +185,7 @@ export default function Juego() {
   const [requiredRole, setRequiredRole] = useState('Bateador');
   const [filterRole, setFilterRole] = useState('Todos');
   const [strategyHint, setStrategyHint] = useState('Elige tu respuesta observando el rol, el poder y la rareza.');
+  const [handScale, setHandScale] = useState(1);
 
   const [currentInning, setCurrentInning] = useState(1);
   const [userRuns, setUserRuns] = useState(0);
@@ -502,35 +504,51 @@ export default function Juego() {
                 <div className="mt-3 bg-rose-950/60 border border-rose-500/50 px-4 py-1.5 rounded-full">
                    <span className="text-[11px] text-white">Debes superar su poder base de <strong className="text-rose-400 text-sm">{currentOppCard?.power}</strong></span>
                 </div>
-                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mt-3 flex max-w-sm items-start gap-2 rounded-xl border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-left">
-                  <Flame size={15} className="mt-0.5 shrink-0 text-amber-400" />
-                  <p className="text-[10px] leading-relaxed text-amber-100"><strong className="text-amber-400">Pista del coach: </strong>{strategyHint}</p>
-                </motion.div>
+
               </div>
 
               <div className="flex-1 flex flex-col bg-slate-900/80 rounded-t-3xl border-t border-slate-700 relative overflow-hidden">
-                <div className="flex justify-between items-center p-4 border-b border-slate-800 bg-slate-900">
-                  <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
-                    Tu turno: Elige un {requiredRole}
-                  </span>
-                  <div className="relative group">
-                    <select 
-                      value={filterRole} 
-                      onChange={(e) => setFilterRole(e.target.value)}
-                      className="bg-slate-800 text-[10px] font-bold px-2 py-1 rounded border border-slate-600 outline-none appearance-none pr-6"
-                    >
-                      <option value="Todos">Todos</option>
-                      <option value="Bateador">Bateadores</option>
-                      <option value="Lanzador">Pitchers</option>
-                    </select>
-                    <ChevronDown size={12} className="absolute right-1.5 top-1.5 pointer-events-none text-slate-400" />
+                <div className="border-b border-slate-800 bg-slate-900 p-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-400">
+                      Tu turno: Elige un {requiredRole}
+                    </span>
+                    <div className="relative shrink-0">
+                      <select
+                        value={filterRole}
+                        onChange={(e) => setFilterRole(e.target.value)}
+                        aria-label="Filtrar cartas por rol"
+                        className="appearance-none rounded border border-slate-600 bg-slate-800 px-2 py-1 pr-6 text-[10px] font-bold outline-none"
+                      >
+                        <option value="Todos">Todos</option>
+                        <option value="Bateador">Bateadores</option>
+                        <option value="Lanzador">Pitchers</option>
+                      </select>
+                      <ChevronDown size={12} className="pointer-events-none absolute right-1.5 top-1.5 text-slate-400" />
+                    </div>
+                  </div>
+                  <div className="mt-3 flex items-center gap-3">
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-slate-500">Cartas</span>
+                    <input
+                      type="range"
+                      min="0.78"
+                      max="1.18"
+                      step="0.02"
+                      value={handScale}
+                      onChange={(event) => setHandScale(Number(event.target.value))}
+                      aria-label="Cambiar tamaño de las cartas"
+                      className="h-1.5 min-w-0 flex-1 cursor-pointer accent-amber-400"
+                    />
+                    <span className="w-10 text-right text-[9px] font-bold text-amber-400">{Math.round(handScale * 100)}%</span>
                   </div>
                 </div>
 
-                <div className="flex-1 overflow-y-auto scrollbar-none pb-32 px-4 pt-4">
-                  <div className="grid grid-cols-2 justify-items-center gap-3 sm:grid-cols-3">
+                <div className="flex-1 overflow-y-auto scrollbar-none px-3 pb-32 pt-4">
+                  <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 scrollbar-none">
                     {filteredRoster.map((card) => (
-                      <BaseballCard key={card.id} card={card} isPlayable onPlay={playUserCard} compact />
+                      <div key={card.id} className="snap-center">
+                        <BaseballCard card={card} isPlayable onPlay={playUserCard} compact scale={handScale} />
+                      </div>
                     ))}
                   </div>
                   {filteredRoster.length === 0 && (
