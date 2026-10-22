@@ -1,35 +1,233 @@
 {
-  "Colorado Rockies": {
+  "Arizona Diamondbacks": {
     "Bateador": [
-      "batter1.png",
-      "batter2.png",
-      "batter3.png",
-      "batter4.png"
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/571448/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/694410/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/606466/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/672695/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/656976/headshot/67/current"
     ],
     "Lanzador": [
-      "pitcher1.png",
-      "pitcher2.png",
-      "pitcher3.png",
-      "pitcher4.png",
-      "pitcher5.png",
-      "pitcher6.png"
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/683352/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/686228/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/669203/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/703615/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/672629/headshot/67/current"
     ]
   },
-  "Kansas City Royals": {
+  "Atlanta Braves": {
     "Bateador": [
-      "batter1.png",
-      "batter2.png",
-      "batter3.png",
-      "batter4.png",
-      "batter5.png"
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/645277/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/805347/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/673490/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/621566/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/663586/headshot/67/current"
     ],
     "Lanzador": [
-      "pitcher1.png",
-      "pither2.png",
-      "pitcher3.png",
-      "pitcher4.png",
-      "pitcher5.png",
-      "pitcher6.png"
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/686628/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/689266/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/693821/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/800311/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/675627/headshot/67/current"
     ]
+  },
+  "Baltimore Orioles": {
+    "Bateador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/677942/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/624413/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/676480/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/687952/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/683002/headshot/67/current"
+    ],
+    "Lanzador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/605135/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/642585/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/669358/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/666974/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/801725/headshot/67/current"
+    ]
+  },
+  "Boston Red Sox": {
+    "Bateador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/691907/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/575929/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/702332/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/643396/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/678554/headshot/67/current"
+    ],
+    "Lanzador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/678394/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/687562/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/670103/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/547973/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/676979/headshot/67/current"
+    ]
+  },
+  "Chicago Cubs": {
+    "Bateador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/672356/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/608324/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/683737/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/663538/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/681230/headshot/67/current"
+    ],
+    "Lanzador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/687924/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/665871/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/571510/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/665795/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/650644/headshot/67/current"
+    ]
+  },
+  "Chicago White Sox": {
+    "Bateador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/682668/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/805367/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/695657/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/808959/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/678246/headshot/67/current"
+    ],
+    "Lanzador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/680732/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/699823/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/607200/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/663855/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/663542/headshot/67/current"
+    ]
+  },
+  "Cincinnati Reds": {
+    "Bateador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/695490/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/699114/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/682877/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/665828/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/682829/headshot/67/current"
+    ],
+    "Lanzador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/671096/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/622088/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/668933/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/656271/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/695505/headshot/67/current"
+    ]
+  },
+  "Cleveland Guardians": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Colorado Rockies": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Detroit Tigers": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Houston Astros": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Kansas City Royals": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Los Angeles Angels": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Los Angeles Dodgers": {
+    "Bateador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/605141/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/669242/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/571970/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/571771/headshot/67/current"
+
+    ],
+    "Lanzador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/660271/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/663460/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/621242/headshot/67/current"
+    ]
+  },
+  "Miami Marlins": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Milwaukee Brewers": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Minnesota Twins": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "New York Mets": {
+    "Bateador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/701807/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/805999/headshot/67/current"
+     
+    ],
+    "Lanzador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/691769/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/650960/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/663795/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/681320/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/640455/headshot/67/current"
+
+    ]
+  },
+  "New York Yankees": {
+    "Bateador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/676609/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/665862/headshot/67/current"
+    ],
+    "Lanzador": [
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/694341/headshot/67/current",
+      "https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_426,q_auto:best/v1/people/670280/headshot/67/current"
+    ]
+  },
+  "Oakland Athletics": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Philadelphia Phillies": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Pittsburgh Pirates": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "San Diego Padres": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "San Francisco Giants": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Seattle Mariners": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "St. Louis Cardinals": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Tampa Bay Rays": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Texas Rangers": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Toronto Blue Jays": {
+    "Bateador": [],
+    "Lanzador": []
+  },
+  "Washington Nationals": {
+    "Bateador": [],
+    "Lanzador": []
   }
 }

@@ -28,6 +28,20 @@ const GAME_TEAMS = [
   { id: 'al13', name: 'Seattle Mariners', logoId: 136, color: 'from-teal-600 to-blue-900', basePower: 88 },
   { id: 'al14', name: 'Los Angeles Angels', logoId: 108, color: 'from-red-500 to-red-800', basePower: 84 },
   { id: 'al15', name: 'Oakland Athletics', logoId: 133, color: 'from-emerald-600 to-yellow-600', basePower: 79 },
+  { id: 'nl2', name: 'Arizona Diamondbacks', logoId: 109, color: 'from-red-700 to-slate-900', basePower: 84 },
+  { id: 'nl3', name: 'Atlanta Braves', logoId: 144, color: 'from-red-700 to-blue-900', basePower: 91 },
+  { id: 'nl4', name: 'Chicago Cubs', logoId: 112, color: 'from-blue-700 to-red-700', basePower: 86 },
+  { id: 'nl5', name: 'Cincinnati Reds', logoId: 113, color: 'from-red-700 to-slate-900', basePower: 82 },
+  { id: 'nl6', name: 'Miami Marlins', logoId: 146, color: 'from-slate-700 to-blue-900', basePower: 80 },
+  { id: 'nl7', name: 'Milwaukee Brewers', logoId: 158, color: 'from-blue-800 to-yellow-500', basePower: 84 },
+  { id: 'nl8', name: 'New York Mets', logoId: 121, color: 'from-blue-700 to-orange-600', basePower: 87 },
+  { id: 'nl9', name: 'Philadelphia Phillies', logoId: 143, color: 'from-red-700 to-blue-900', basePower: 90 },
+  { id: 'nl10', name: 'Pittsburgh Pirates', logoId: 134, color: 'from-yellow-500 to-black', basePower: 82 },
+  { id: 'nl11', name: 'San Diego Padres', logoId: 135, color: 'from-brown-700 to-yellow-500', basePower: 88 },
+  { id: 'nl12', name: 'San Francisco Giants', logoId: 137, color: 'from-orange-600 to-black', basePower: 84 },
+  { id: 'nl13', name: 'St. Louis Cardinals', logoId: 138, color: 'from-red-700 to-blue-900', basePower: 86 },
+  { id: 'nl14', name: 'Los Angeles Dodgers', logoId: 119, color: 'from-blue-700 to-slate-900', basePower: 94 },
+  { id: 'nl15', name: 'Washington Nationals', logoId: 120, color: 'from-red-700 to-blue-900', basePower: 81 },
 ];
 
 // --- GENERADOR DINÁMICO DE ROSTERS ---
@@ -46,9 +60,7 @@ const generateRoster = (team, isUser = false) => {
       const rarity = power >= 92 ? 'Diamante' : power >= 86 ? 'Oro' : 'Plata';
       const imageFiles = teamCardImages[team.name]?.[r.role] ?? [];
       const imageFile = imageFiles[Math.floor(Math.random() * imageFiles.length)];
-      const imagePath = imageFile
-        ? `../assets/juego/${team.name.toLowerCase()}/${imageFile}`
-        : null;
+      const imagePath = imageFile || null;
       
       roster.push({
         id: `${team.id}-${r.role}-${i}`,
@@ -58,7 +70,11 @@ const generateRoster = (team, isUser = false) => {
         power,
         rarity,
         color: team.color,
-        image: imagePath ? teamImageAssets[imagePath] : null,
+        image: imagePath?.startsWith('http')
+          ? imagePath
+          : imagePath
+            ? teamImageAssets[`../assets/juego/${team.name.toLowerCase()}/${imagePath}`]
+            : null,
         stats: { 
           [r.stat1]: power > 90 ? (r.role === 'Bateador' ? '.310' : '2.50') : (r.role === 'Bateador' ? '.260' : '3.80'), 
           [r.stat2]: Math.floor(power * (r.role === 'Bateador' ? 0.35 : 1.8)) 

@@ -277,7 +277,14 @@ const capturePhoto = async () => {
     const dataUrl = canvas.toDataURL('image/png');
     const link = document.createElement('a');
     link.href = dataUrl;
-    link.download = 'jonron-screenshot.png';
+    const createdAt = new Date();
+    const pad = (value) => String(value).padStart(2, '0');
+    const timestamp = [
+      createdAt.getFullYear(),
+      pad(createdAt.getMonth() + 1),
+      pad(createdAt.getDate())
+    ].join('-') + `_${pad(createdAt.getHours())}-${pad(createdAt.getMinutes())}-${pad(createdAt.getSeconds())}`;
+    link.download = `jonron-screenshot-${timestamp}.png`;
     link.click();
   } catch (error) {
     console.error('Screenshot failed', error);

@@ -35,7 +35,7 @@ export default function Historia() {
             className={`flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-bold rounded-lg transition-all ${activeTab === 'equipos' ? 'bg-[#0047AB] text-white shadow-md' : 'text-slate-600 hover:text-slate-900'
               }`}
           >
-            <Users size={14} /> Franquicias (AL)
+            <Users size={14} /> Todos los equipos MLB
           </button>
         </div>
 
@@ -105,13 +105,6 @@ export default function Historia() {
                 </button>
               ))}
 
-              {/* Placeholder explicativo temporal para los equipos faltantes */}
-              {searchQuery === '' && filteredTeams.length < 15 && (
-                <div className="bg-slate-100 border border-slate-200 border-dashed rounded-2xl p-5 text-center text-xs text-slate-500">
-                  <p className="font-bold mb-1">¡Enciclopedia en construcción!</p>
-                  <p>Puedes agregar la historia de los demás equipos de la AL editando el archivo <code className="bg-slate-200 px-1 rounded">historyData.js</code>.</p>
-                </div>
-              )}
               {normalizedQuery && filteredTeams.length === 0 && (
                 <p className="rounded-xl bg-white p-5 text-center text-xs text-slate-500">
                   No se encontraron equipos con “{searchQuery}”.
